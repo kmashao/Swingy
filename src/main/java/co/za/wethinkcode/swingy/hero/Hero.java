@@ -1,6 +1,6 @@
 package co.za.wethinkcode.swingy.hero;
 
-public class Hero implements HeroBuild {
+public class Hero implements HeroStats {
 
 	private String heroName;
 	private String heroClass;
