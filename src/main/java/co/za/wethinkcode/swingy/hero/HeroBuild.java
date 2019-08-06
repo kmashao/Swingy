@@ -4,6 +4,8 @@ public interface HeroBuild {
 
 	public void heroName();
 
+
+
 	public void heroClass();
 
 	public void heroLevel();

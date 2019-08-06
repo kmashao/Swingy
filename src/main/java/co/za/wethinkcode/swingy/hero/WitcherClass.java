@@ -10,6 +10,7 @@ public class WitcherClass implements HeroBuild {
 
 	}
 
+
 	@Override
 	public void heroName() {
 
@@ -26,13 +27,14 @@ public class WitcherClass implements HeroBuild {
 	@Override
 	public void heroLevel() {
 
-		hero.setLevel(5);
+		hero.setLevel(2);
 	}
 
 	@Override
 	public void heroExperience() {
 
-		hero.setExperience();
+		int xp = hero.getHeroLevel();
+		hero.setExperience((xp * 1000)+((xp - 1)*(xp - 1)) *450);
 	}
 
 	@Override
