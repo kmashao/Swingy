@@ -42,7 +42,7 @@ public class Hero implements HeroStats {
 	/**
 	 * @return the level
 	 */
-	public int getLevel() {
+	public int getHeroLevel() {
 		return level;
 	}
 
@@ -90,7 +90,7 @@ public class Hero implements HeroStats {
 	/**
 	 * @return the hp
 	 */
-	public int getHp() {
+	public int getHitPoints() {
 		return hp;
 	}
 
