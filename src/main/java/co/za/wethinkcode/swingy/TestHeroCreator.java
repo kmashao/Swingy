@@ -55,6 +55,7 @@ public class TestHeroCreator {
 
         CreateMap map = new CreateMap(hero);
         map.setMap();
+        map.printMap();
 
         System.out.println("------------------------------");
     }

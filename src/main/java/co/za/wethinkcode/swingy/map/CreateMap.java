@@ -31,18 +31,22 @@ public class CreateMap {
         for(int i = 0; i < mapSize; i++){
 
             for(int k = 0; k < mapSize; k++) {
+
                 map[i][k] = '*';
-                System.out.print(" * ");
-                if (i == xHero && k == yHero){
+
+                if (i == xHero && k == yHero)
                     map[i][k] = 'H';
-                    System.out.print(" H ");
-                }
-
             }
-            System.out.println();
-
         }
 
+    }
+
+    public void printMap(){
+        for (int i = 0; i < mapSize; i++){
+            for (int k = 0; k < mapSize; k++)
+                System.out.print(map[i][k]);
+            System.out.println();
+        }
     }
 
 
