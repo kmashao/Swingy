@@ -17,6 +17,8 @@ public class TestHeroCreator {
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter hero name: ");
         String name_ = scan.nextLine();
+        System.out.println("Navigate\n");
+        String nav = scan.nextLine();
         System.out.println("Choose hero class: ");
         System.out.println("1. Witcher\n2. Mage\n3. Fighter");
         int class_ = scan.nextInt();
@@ -55,7 +57,8 @@ public class TestHeroCreator {
 
         CreateMap map = new CreateMap(hero);
         map.setMap();
-        map.printMap();
+        map.navigate(nav);
+
         System.out.println("------------------------------");
     }
 }
