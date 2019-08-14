@@ -1,5 +1,7 @@
 package co.za.wethinkcode.swingy.hero;
 
+
+
 public class Hero implements HeroStats {
 
 	private String heroName;
@@ -42,9 +44,7 @@ public class Hero implements HeroStats {
 	/**
 	 * @return the level
 	 */
-	public int getHeroLevel() {
-		return level;
-	}
+	public int getHeroLevel() { return level; }
 
 	@Override
 	public void setExperience(int experience) {

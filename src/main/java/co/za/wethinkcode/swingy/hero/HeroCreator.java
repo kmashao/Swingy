@@ -12,9 +12,9 @@ public class HeroCreator {
 		return this.heroBuild.getHero();
 	}
 
-	public void createHero() {
+	public void createHero() throws NumberFormatException {
 
-		this.heroBuild.heroName();
+		//this.heroBuild.heroName();
 
 		this.heroBuild.heroClass();
 

@@ -2,11 +2,9 @@ package co.za.wethinkcode.swingy.hero;
 
 public interface HeroBuild {
 
-	public void heroName();
+	//public void heroName();
 
-
-
-	public void heroClass();
+	public void heroClass() throws NumberFormatException;
 
 	public void heroLevel();
 
