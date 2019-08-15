@@ -5,10 +5,15 @@ import co.za.wethinkcode.swingy.hero.HeroBuild;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class HeroClasses implements HeroBuild {
 
 	private Hero hero;
 
+	@Min(value = 1, message = "Value must not be less than 1")
+	@Max(value = 3, message = "Value must not be greater than 3")
 	private int heroClass_;
 
 	public HeroClasses(String name_, int class_) {

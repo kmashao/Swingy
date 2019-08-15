@@ -1,5 +1,7 @@
 package co.za.wethinkcode.swingy.hero;
 
+import javax.validation.constraints.NotNull;
+
 
 
 public class Hero implements HeroStats {
@@ -13,6 +15,7 @@ public class Hero implements HeroStats {
 	private int hp;
 
 	@Override
+	@NotNull(message = "Name cannot be empty")
 	public void setName(String heroName) {
 		this.heroName = heroName;
 	}
@@ -47,6 +50,7 @@ public class Hero implements HeroStats {
 	public int getHeroLevel() { return level; }
 
 	@Override
+
 	public void setExperience(int experience) {
 		this.experience = experience;
 	}

@@ -53,20 +53,20 @@ public class CreateMap {
 
 	public void navigate(String nav){
 
-		switch (nav) {
-			case "North":
+		switch (nav.toLowerCase()) {
+			case "north":
 				xHero -= 1;
 				printMap();
 				break;
-			case "South":
+			case "south":
 				xHero += 1;
 				printMap();
 				break;
-			case "West":
+			case "west":
 				yHero -= 1;
 				printMap();
 				break;
-			case "East":
+			case "east":
 				yHero += 1;
 				printMap();
 				break;
