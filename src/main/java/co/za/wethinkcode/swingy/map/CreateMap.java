@@ -37,12 +37,20 @@ public class CreateMap {
 			}
 		}
 
+		printMap();
+
+	}
+
+	public void clearScreen()
+	{
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 	}
 
 	private void printMap(){
 		for (int i = 0; i < mapSize; i++){
 			for (int k = 0; k < mapSize; k++) {
-
+				map[i][k] = '*';
 				if (i == xHero && k == yHero)
 					map[i][k] = 'H';
 				System.out.print(" " + map[i][k] + " ");
@@ -54,19 +62,19 @@ public class CreateMap {
 	public void navigate(String nav){
 
 		switch (nav.toLowerCase()) {
-			case "north":
+			case "n":
 				xHero -= 1;
 				printMap();
 				break;
-			case "south":
+			case "s":
 				xHero += 1;
 				printMap();
 				break;
-			case "west":
+			case "w":
 				yHero -= 1;
 				printMap();
 				break;
-			case "east":
+			case "e":
 				yHero += 1;
 				printMap();
 				break;

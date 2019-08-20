@@ -4,17 +4,17 @@ public interface HeroBuild {
 
 	//public void heroName();
 
-	public void heroClass() throws NumberFormatException;
+	void heroClass();
 
-	public void heroLevel();
+	void heroLevel();
 
-	public void heroExperience();
+	void heroExperience();
 
-	public void heroAttack();
+	void heroAttack();
 
-	public void heroDefense();
+	void heroDefense();
 
-	public void heroHitPoints();
+	void heroHitPoints();
 
-	public Hero getHero();
+	Hero getHero();
 }

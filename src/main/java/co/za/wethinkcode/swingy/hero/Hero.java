@@ -1,7 +1,7 @@
 package co.za.wethinkcode.swingy.hero;
 
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Size;
 
 
 public class Hero implements HeroStats {
@@ -15,7 +15,7 @@ public class Hero implements HeroStats {
 	private int hp;
 
 	@Override
-	@NotNull(message = "Name cannot be empty")
+	//@Size(min = 1, max = 15, message = "Name has to be between 1 and 15 characters long")
 	public void setName(String heroName) {
 		this.heroName = heroName;
 	}

@@ -1,18 +1,18 @@
 package co.za.wethinkcode.swingy.hero;
 
-public interface HeroStats {
+interface HeroStats {
 
-	public void setName(String name_);
+	void setName(String name_);
 
-	public void setClass(String class_);
+	void setClass(String class_);
 
-	public void setLevel(int level);
+	void setLevel(int level);
 
-	public void setExperience(int experience);
+	void setExperience(int experience);
 
-	public void setAttack(int attack);
+	void setAttack(int attack);
 
-	public void setDefense(int defense);
+	void setDefense(int defense);
 
-	public void setHitPoints(int hp);
+	void setHitPoints(int hp);
 }

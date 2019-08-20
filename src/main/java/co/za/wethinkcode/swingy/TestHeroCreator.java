@@ -1,32 +1,43 @@
 package co.za.wethinkcode.swingy;
 
-import co.za.wethinkcode.swingy.hero.HeroBuild;
-import co.za.wethinkcode.swingy.hero.HeroClasses;
-import co.za.wethinkcode.swingy.hero.HeroCreator;
-import co.za.wethinkcode.swingy.hero.Hero;
+import co.za.wethinkcode.swingy.hero.*;
 
 import co.za.wethinkcode.swingy.map.CreateMap;
 
 import java.util.Scanner;
 
-public class TestHeroCreator {
-	public static void main(String[] args) throws IllegalStateException {
+	class TestHeroCreator {
+
+	public static void main(String[] args) throws NumberFormatException {
 
 		String nav;
+		HeroCreator heroCreator;
 
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Enter hero name: ");
 		String name_ = scan.nextLine();
-		System.out.println("Navigate\n");
+		//System.out.println("Navigate\n");
 		System.out.println("Choose hero class: ");
 		System.out.println("1. Witcher\n2. Mage\n3. Fighter");
 		int class_ = scan.nextInt();
 
 
+		switch(class_){
+			case 1:
+				HeroBuild mage = new Mage(name_);
+				heroCreator = new HeroCreator(mage);
+				break;
+			case 2:
+				HeroBuild fighter = new Fighter(name_);
+				heroCreator = new HeroCreator(fighter);
+				break;
+			case 3:
+				HeroBuild witcher = new Witcher(name_);
+				heroCreator = new HeroCreator(witcher);
+				break;
+			default: throw new NumberFormatException(class_ + " is not a valid class pick a correct number");
 
-		HeroBuild heroClass = new HeroClasses(name_, class_);
-
-		HeroCreator heroCreator = new HeroCreator(heroClass);
+		}
 
 		heroCreator.createHero();
 
@@ -58,6 +69,8 @@ public class TestHeroCreator {
 		map.setMap();
 		for(int i = 0; i < 4; i++) {
 
+
+			System.out.println("navigate");
 			try {
 				nav = scan.next();
 				map.navigate(nav);
@@ -65,6 +78,8 @@ public class TestHeroCreator {
 				String message = ise.getMessage();
 				System.out.println("Unexpected value " + message );
 			}
+
+		//	map.clearScreen();
 
 		}
 
