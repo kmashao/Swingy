@@ -16,13 +16,13 @@ import java.util.Scanner;
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Enter hero name: ");
 		String name_ = scan.nextLine();
-		//System.out.println("Navigate\n");
-		System.out.println("Choose hero class: ");
+		System.out.println("Choose hero class: \n");
 		System.out.println("1. Witcher\n2. Mage\n3. Fighter");
 		int class_ = scan.nextInt();
 
 
 		switch(class_){
+
 			case 1:
 				HeroBuild mage = new Mage(name_);
 				heroCreator = new HeroCreator(mage);
