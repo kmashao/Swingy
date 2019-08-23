@@ -35,7 +35,6 @@ import java.util.Scanner;
 				heroCreator = new HeroCreator(witcher);
 				break;
 			default: throw new NumberFormatException(class_ + " is not a valid class pick a correct number");
-
 		}
 
 		heroCreator.createHero();

@@ -39,8 +39,7 @@ public class CreateMap {
 		}
 
 		printMap();
-		System.out.println("\n" + mapSize);
-
+	//	System.out.println("\n" + mapSize);
 	}
 
 	public void clearScreen()
