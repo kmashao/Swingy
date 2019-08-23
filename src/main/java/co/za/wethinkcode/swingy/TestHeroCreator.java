@@ -20,10 +20,9 @@ import java.util.Scanner;
 		System.out.println("1. Witcher\n2. Mage\n3. Fighter");
 		int class_ = scan.nextInt();
 
-
 		switch(class_){
 
-			case 1:
+			case 3:
 				HeroBuild mage = new Mage(name_);
 				heroCreator = new HeroCreator(mage);
 				break;
@@ -31,7 +30,7 @@ import java.util.Scanner;
 				HeroBuild fighter = new Fighter(name_);
 				heroCreator = new HeroCreator(fighter);
 				break;
-			case 3:
+			case 1:
 				HeroBuild witcher = new Witcher(name_);
 				heroCreator = new HeroCreator(witcher);
 				break;

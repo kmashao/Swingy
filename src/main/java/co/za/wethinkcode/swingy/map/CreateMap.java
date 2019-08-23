@@ -1,6 +1,7 @@
 package co.za.wethinkcode.swingy.map;
 
 import co.za.wethinkcode.swingy.hero.*;
+import org.jetbrains.annotations.NotNull;
 
 public class CreateMap {
 
@@ -65,8 +66,9 @@ public class CreateMap {
 		return 1;
 	}
 
-	public int navigate(String nav){
+	public int navigate(@NotNull String nav){
 		int oc = 1;
+
 		switch (nav.toLowerCase()) {
 			case "n":
 				xHero -= 1;
@@ -82,7 +84,7 @@ public class CreateMap {
 				break;
 			case "e":
 				yHero += 1;
-				printMap();
+				oc = printMap();
 				break;
 			default:
 				return oc;
