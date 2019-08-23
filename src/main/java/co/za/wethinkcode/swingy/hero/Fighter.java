@@ -14,7 +14,7 @@ public class Fighter implements HeroBuild {
 	}
 
 	public void heroLevel() {
-		hero.setClass("Fighter");
+		hero.setLevel(1);
 	}
 
 	public void heroExperience() {

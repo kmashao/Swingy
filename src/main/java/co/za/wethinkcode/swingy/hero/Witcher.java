@@ -13,9 +13,7 @@ public class Witcher implements HeroBuild {
 		hero.setClass("Witcher");
 	}
 
-	public void heroLevel() {
-		hero.setLevel(1);
-	}
+	public void heroLevel() { hero.setLevel(1); }
 
 	public void heroExperience() {
 		hero.setExperience(1000);

@@ -13,9 +13,7 @@ public class Mage implements HeroBuild {
 		hero.setClass("Mage");
 	}
 
-	public void heroLevel() {
-		hero.setLevel(1);
-	}
+	public void heroLevel() { hero.setLevel(1); }
 
 	public void heroExperience() {
 		hero.setExperience(1000);

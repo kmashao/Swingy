@@ -67,13 +67,13 @@ import java.util.Scanner;
 
 		CreateMap map = new CreateMap(hero);
 		map.setMap();
-		for(int i = 0; i < 4; i++) {
+		for(int i = 1; i != 2;) {
 
 
 			System.out.println("navigate");
 			try {
 				nav = scan.next();
-				map.navigate(nav);
+				i = map.navigate(nav);
 			}catch (IllegalStateException ise){
 				String message = ise.getMessage();
 				System.out.println("Unexpected value " + message );

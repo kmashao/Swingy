@@ -38,6 +38,7 @@ public class CreateMap {
 		}
 
 		printMap();
+		System.out.println("\n" + mapSize);
 
 	}
 
@@ -47,40 +48,46 @@ public class CreateMap {
 		System.out.flush();
 	}
 
-	private void printMap(){
+	private int printMap(){
 		for (int i = 0; i < mapSize; i++){
 			for (int k = 0; k < mapSize; k++) {
 				map[i][k] = '*';
 				if (i == xHero && k == yHero)
 					map[i][k] = 'H';
 				System.out.print(" " + map[i][k] + " ");
+				if (xHero == 0 || yHero == 0 || xHero == mapSize - 1 || yHero == mapSize - 1){
+					System.out.println("Reached the edge");
+					return 2;
+				}
 			}
 			System.out.println();
 		}
+		return 1;
 	}
 
-	public void navigate(String nav){
-
+	public int navigate(String nav){
+		int oc = 1;
 		switch (nav.toLowerCase()) {
 			case "n":
 				xHero -= 1;
-				printMap();
+				oc = printMap();
 				break;
 			case "s":
 				xHero += 1;
-				printMap();
+				oc = printMap();
 				break;
 			case "w":
 				yHero -= 1;
-				printMap();
+				oc = printMap();
 				break;
 			case "e":
 				yHero += 1;
 				printMap();
 				break;
 			default:
-				throw new IllegalStateException("Unexpected value: " + nav);
+				return oc;
 		}
+		return oc;
 	}
 
 
