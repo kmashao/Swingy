@@ -1,7 +1,10 @@
 package co.za.wethinkcode.swingy;
 
-import co.za.wethinkcode.swingy.hero.*;
+import co.za.wethinkcode.swingy.characters.*;
 
+import co.za.wethinkcode.swingy.characters.heroes.Fighter;
+import co.za.wethinkcode.swingy.characters.heroes.Mage;
+import co.za.wethinkcode.swingy.characters.heroes.Witcher;
 import co.za.wethinkcode.swingy.map.CreateMap;
 
 import java.util.Scanner;

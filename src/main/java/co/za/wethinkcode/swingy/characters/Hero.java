@@ -1,7 +1,4 @@
-package co.za.wethinkcode.swingy.hero;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package co.za.wethinkcode.swingy.characters;
 
 
 public class Hero implements HeroStats {

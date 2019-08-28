@@ -1,19 +1,24 @@
-package co.za.wethinkcode.swingy.hero;
+package co.za.wethinkcode.swingy.characters.heroes;
 
-public class Witcher implements HeroBuild {
+import co.za.wethinkcode.swingy.characters.Hero;
+import co.za.wethinkcode.swingy.characters.HeroBuild;
+
+public class Fighter implements HeroBuild {
 
 	private Hero hero;
 
-	public Witcher(String name) {
+	public Fighter(String name){
 		this.hero = new Hero();
 		hero.setName(name);
 	}
 
 	public void heroClass() {
-		hero.setClass("Witcher");
+		hero.setClass("Fighter");
 	}
 
-	public void heroLevel() { hero.setLevel(1); }
+	public void heroLevel() {
+		hero.setLevel(1);
+	}
 
 	public void heroExperience() {
 		hero.setExperience(1000);
@@ -28,7 +33,7 @@ public class Witcher implements HeroBuild {
 	}
 
 	public void heroHitPoints() {
-		hero.setHitPoints(150);
+		hero.setHitPoints(200);
 	}
 
 	public Hero getHero() {

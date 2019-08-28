@@ -1,4 +1,7 @@
-package co.za.wethinkcode.swingy.hero;
+package co.za.wethinkcode.swingy.characters.heroes;
+
+import co.za.wethinkcode.swingy.characters.Hero;
+import co.za.wethinkcode.swingy.characters.HeroBuild;
 
 public class Mage implements HeroBuild {
 

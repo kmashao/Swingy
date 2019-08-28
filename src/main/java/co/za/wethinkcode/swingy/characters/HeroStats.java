@@ -1,4 +1,4 @@
-package co.za.wethinkcode.swingy.hero;
+package co.za.wethinkcode.swingy.characters;
 
 interface HeroStats {
 

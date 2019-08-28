@@ -1,6 +1,6 @@
 package co.za.wethinkcode.swingy.map;
 
-import co.za.wethinkcode.swingy.hero.*;
+import co.za.wethinkcode.swingy.characters.*;
 import org.jetbrains.annotations.NotNull;
 
 public class CreateMap {

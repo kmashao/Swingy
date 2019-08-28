@@ -1,9 +1,4 @@
-package co.za.wethinkcode.swingy.hero;
-
-import co.za.wethinkcode.swingy.hero.Hero;
-import co.za.wethinkcode.swingy.hero.HeroBuild;
-
-import java.util.concurrent.ExecutionException;
+package co.za.wethinkcode.swingy.characters;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
