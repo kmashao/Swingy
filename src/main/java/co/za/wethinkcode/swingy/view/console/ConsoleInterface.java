@@ -25,9 +25,7 @@ public class ConsoleInterface implements Display {
 				"1. Witcher     120         50          150\n" +
 				"2. Mage        75          100         50\n" +
 				"3. Fighter     120         50          200\n");
-
-
-
+		int heroClass = scan.nextInt();
 	}
 
 	public void DisplayHeroName() {
