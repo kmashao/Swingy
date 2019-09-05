@@ -1,27 +1,29 @@
 package co.za.wethinkcode.swingy;
 
-import co.za.wethinkcode.swingy.characters.*;
+import co.za.wethinkcode.swingy.model.characters.*;
 
-import co.za.wethinkcode.swingy.characters.heroes.Fighter;
-import co.za.wethinkcode.swingy.characters.heroes.Mage;
-import co.za.wethinkcode.swingy.characters.heroes.Witcher;
+import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
+import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
+import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
 import co.za.wethinkcode.swingy.map.CreateMap;
 
 import java.util.Scanner;
 
-	class TestHeroCreator {
+public	class Main {
+
+		public static Scanner scanner;
 
 	public static void main(String[] args) throws NumberFormatException {
 
 		String nav;
 		HeroCreator heroCreator;
 
-		Scanner scan = new Scanner(System.in);
+		scanner = new Scanner(System.in);
 		System.out.print("Enter hero name: ");
-		String name_ = scan.nextLine();
+		String name_ = scanner.nextLine();
 		System.out.println("Choose hero class: \n");
 		System.out.println("1. Witcher\n2. Mage\n3. Fighter");
-		int class_ = scan.nextInt();
+		int class_ = scanner.nextInt();
 
 		switch(class_){
 
@@ -73,7 +75,7 @@ import java.util.Scanner;
 
 			System.out.println("navigate");
 			try {
-				nav = scan.next();
+				nav = scanner.next();
 				i = map.navigate(nav);
 			}catch (IllegalStateException ise){
 				String message = ise.getMessage();
@@ -87,4 +89,12 @@ import java.util.Scanner;
 
 	//	System.out.println("------------------------------");
 	}
-}
+
+
+		public static Scanner getScanner() {
+			if(scanner != null)
+				return scanner;
+			scanner = new Scanner(System.in);
+			return scanner;
+		}
+	}

@@ -1,4 +1,4 @@
-package co.za.wethinkcode.swingy.characters;
+package co.za.wethinkcode.swingy.model.characters;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

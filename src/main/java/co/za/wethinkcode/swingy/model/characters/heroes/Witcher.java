@@ -1,7 +1,7 @@
-package co.za.wethinkcode.swingy.characters.heroes;
+package co.za.wethinkcode.swingy.model.characters.heroes;
 
-import co.za.wethinkcode.swingy.characters.Hero;
-import co.za.wethinkcode.swingy.characters.HeroBuild;
+import co.za.wethinkcode.swingy.model.characters.Hero;
+import co.za.wethinkcode.swingy.model.characters.HeroBuild;
 
 public class Witcher implements HeroBuild {
 

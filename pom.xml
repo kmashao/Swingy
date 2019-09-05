@@ -111,7 +111,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>co.za.wethinkcode.swingy.TestHeroCreator</mainClass>
+                                <mainClass>co.za.wethinkcode.swingy.Main</mainClass>
                             </manifest>
                         </archive>
                     </configuration>

@@ -1,4 +1,4 @@
-package co.za.wethinkcode.swingy.characters;
+package co.za.wethinkcode.swingy.model.characters;
 
 
 public class Hero implements HeroStats {
