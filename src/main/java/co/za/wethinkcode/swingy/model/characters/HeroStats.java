@@ -1,6 +1,6 @@
 package co.za.wethinkcode.swingy.model.characters;
 
-interface HeroStats {
+public interface HeroStats {
 
 	void setName(String name_);
 
