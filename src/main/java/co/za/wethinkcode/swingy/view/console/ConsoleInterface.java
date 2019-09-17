@@ -1,12 +1,24 @@
 package co.za.wethinkcode.swingy.view.console;
 
 import co.za.wethinkcode.swingy.Main;
+import co.za.wethinkcode.swingy.model.characters.Hero;
+import co.za.wethinkcode.swingy.model.characters.HeroBuild;
+
+import co.za.wethinkcode.swingy.model.characters.HeroCreator;
+import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
+import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
+import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
+import co.za.wethinkcode.swingy.map.CreateMap;
 import co.za.wethinkcode.swingy.view.Display;
 import sun.nio.cs.ext.ISO2022_CN;
 
 import java.util.Scanner;
 
 public class ConsoleInterface implements Display {
+	
+	private Hero hero = null;
+	
+	
 	public void DisplayStart() {
 
 		System.out.println("/*******************************************\n" +
@@ -15,28 +27,69 @@ public class ConsoleInterface implements Display {
 
 	}
 
-	public void DisplayHeroSelect(){
-
-		Scanner scan = Main.getScanner();
-		System.out.println("Enter your hero's name");
-		String name = scan.nextLine();
-		System.out.println("Select a number to choose class\n" +
-				"   Class       Attack      Defense     HP\n" +
-				"1. Witcher     120         50          150\n" +
-				"2. Mage        75          100         50\n" +
-				"3. Fighter     120         50          200\n");
-		int heroClass = scan.nextInt();
+	public void DisplayHeroSelect() {
+		
+		int heroClass = 0;
+		String name_ = null;
+		HeroCreator heroCreator = null;
+		
+		Scanner scan = null;
+		try {
+			scan = Main.getScanner();
+			System.out.println("Enter your hero's name");
+			name_ = scan.nextLine();
+			System.out.println("Select a number to choose class\n" +
+					"   Class       Attack      Defense     HP\n" +
+					"1. Witcher     120         50          150\n" +
+					"2. Mage        75          100         50\n" +
+					"3. Fighter     120         50          200\n");
+			if (!scan.hasNextInt())
+				throw new Exception();
+			heroClass = scan.nextInt();
+			scan.nextLine();
+			if ((heroClass < 1) || (heroClass > 3))
+				throw new Exception();
+		} catch (Exception e) {
+			System.out.println("\nERROR\nInput should be 1 or 2.");
+			if (scan != null)
+				scan.close();
+			System.exit(1);
+		} finally {
+			if (heroClass == 1) {
+				HeroBuild witcher = new Witcher(name_);
+				heroCreator = new HeroCreator(witcher);
+			} else if (heroClass == 2) {
+				HeroBuild fighter = new Fighter(name_);
+				heroCreator = new HeroCreator(fighter);
+			} else if (heroClass == 3) {
+				HeroBuild mage = new Mage(name_);
+				heroCreator = new HeroCreator(mage);
+			}
+			
+			assert heroCreator != null;
+			heroCreator.createHero();
+			hero = heroCreator.getHero();
+		}
 	}
-
-	public void DisplayHeroName() {
-
+		
+		public void run(){
+		
+		this.DisplayHeroSelect();
+		CreateMap map = new CreateMap(this.hero);
+		map.setMap();
+		String nav = null;
+		
+		}
+		
+		public void DisplayHeroName() {
+		
+		}
+		
+		public void DisplayStats () {
+		
+		}
+		
+		public void DisplayIntro () {
+		
+		}
 	}
-
-	public void DisplayStats() {
-
-	}
-
-	public void DisplayIntro() {
-
-	}
-}

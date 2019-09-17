@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public	class Main {
 
-		public static Scanner scanner;
+		public static Scanner scanner = null;
 
 	public static void main(String[] args) throws NumberFormatException {
 

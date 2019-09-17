@@ -6,5 +6,5 @@ public interface Display{
 	public void DisplayHeroName();
 	public void DisplayStats();
 	public void DisplayIntro();
-
+	public void run();
 }
