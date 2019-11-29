@@ -10,7 +10,7 @@ import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
 import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
 import co.za.wethinkcode.swingy.map.CreateMap;
 import co.za.wethinkcode.swingy.view.Display;
-import sun.nio.cs.ext.ISO2022_CN;
+
 
 import java.util.Scanner;
 
@@ -69,6 +69,26 @@ public class ConsoleInterface implements Display {
 			assert heroCreator != null;
 			heroCreator.createHero();
 			hero = heroCreator.getHero();
+
+			System.out.println("Hero Created");
+
+			System.out.println(" ");
+
+			System.out.println("Hero stats are:");
+
+			System.out.println("Name: " + hero.getHeroName());
+
+			System.out.println("Class: " + hero.getHeroClass());
+
+			System.out.println("Level: " + hero.getHeroLevel());
+
+			System.out.println("Exp: " + hero.getExperience());
+
+			System.out.println("Attack: " + hero.getAttack());
+
+			System.out.println("Defense: " + hero.getDefense());
+
+			System.out.println("HP: " + hero.getHitPoints());
 		}
 	}
 		

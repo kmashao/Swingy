@@ -6,12 +6,14 @@ import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
 import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
 import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
 import co.za.wethinkcode.swingy.map.CreateMap;
+import co.za.wethinkcode.swingy.view.Display;
+import co.za.wethinkcode.swingy.view.console.ConsoleInterface;
 
 import java.util.Scanner;
 
 public	class Main {
 
-		public static Scanner scanner = null;
+    public static Scanner scanner = null;
 
 	public static void main(String[] args) throws NumberFormatException {
 
@@ -25,20 +27,25 @@ public	class Main {
 		System.out.println("1. Witcher\n2. Mage\n3. Fighter");
 		int class_ = scanner.nextInt();
 
+      //  ConsoleInterface console = new ConsoleInterface();
+      //  console.DisplayHeroSelect();
 		switch(class_){
+
+            case 1:
+                HeroBuild witcher = new Witcher(name_);
+                heroCreator = new HeroCreator(witcher);
+                break;
+
+            case 2:
+                HeroBuild fighter = new Fighter(name_);
+                heroCreator = new HeroCreator(fighter);
+                break;
 
 			case 3:
 				HeroBuild mage = new Mage(name_);
 				heroCreator = new HeroCreator(mage);
 				break;
-			case 2:
-				HeroBuild fighter = new Fighter(name_);
-				heroCreator = new HeroCreator(fighter);
-				break;
-			case 1:
-				HeroBuild witcher = new Witcher(name_);
-				heroCreator = new HeroCreator(witcher);
-				break;
+
 			default: throw new NumberFormatException(class_ + " is not a valid class pick a correct number");
 		}
 
@@ -46,25 +53,6 @@ public	class Main {
 
 		Hero hero = heroCreator.getHero();
 
-		System.out.println("Hero Created");
-
-		System.out.println(" ");
-
-		System.out.println("Hero stats are:");
-
-		System.out.println("Name: " + hero.getHeroName());
-
-		System.out.println("Class: " + hero.getHeroClass());
-
-		System.out.println("Level: " + hero.getHeroLevel());
-
-		System.out.println("Exp: " + hero.getExperience());
-
-		System.out.println("Attack: " + hero.getAttack());
-
-		System.out.println("Defense: " + hero.getDefense());
-
-		System.out.println("HP: " + hero.getHitPoints());
 
 	//	System.out.println("-------------Map-------------");
 
@@ -85,8 +73,6 @@ public	class Main {
 		//	map.clearScreen();
 
 		}
-
-
 	//	System.out.println("------------------------------");
 	}
 

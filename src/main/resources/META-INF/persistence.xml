@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<persistence-unit name="co.za.wethinkcode.swingy.dbshet">
+<persistence-unit name="swing">
     <description>Hibernate EntityManager Demo</description>
-    <class>co.za.wethinkcode.swingy.dbshet.Test</class>
+    <class>co.za.wethinkcode.swingy.dbshet.Entities</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
         <property name="hibernate.hbm2ddl.auto" value="update"/>
         <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test"/>
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swingy"/>
         <property name="javax.persistence.jdbc.user" value="root"/>
-        <property name="javax.persistence.jdbc.password" value="12345678"/>
+        <property name="javax.persistence.jdbc.password" value="123456"/>
+        <property name="show_sql">true</property>
+        <property name="connection.pool_size">1</property>
     </properties>
 </persistence-unit>
