@@ -2,7 +2,7 @@
 
 <persistence-unit name="swing">
     <description>Hibernate EntityManager Demo</description>
-    <class>co.za.wethinkcode.swingy.dbshet.Entities</class>
+    <class>co.za.wethinkcode.swingy.database.dbConnect</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
         <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
