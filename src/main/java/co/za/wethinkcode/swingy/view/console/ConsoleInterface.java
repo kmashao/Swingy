@@ -50,7 +50,7 @@ public class ConsoleInterface implements Display {
 			if ((heroClass < 1) || (heroClass > 3))
 				throw new Exception();
 		} catch (Exception e) {
-			System.out.println("\nERROR\nInput should be 1 or 2.");
+			System.out.println("\nERROR\nInput should be 1, 2 or 3.");
 			if (scan != null)
 				scan.close();
 			System.exit(1);

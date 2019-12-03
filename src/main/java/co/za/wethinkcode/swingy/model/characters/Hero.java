@@ -1,10 +1,19 @@
 package co.za.wethinkcode.swingy.model.characters;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Hero implements HeroStats {
 
+	@NotBlank(message = "hero name cannot be blank")
+	@NotNull(message = "Hero name cannot be null")
+	@Size(min = 3, max = 15, message = "hero name has to be between 3 and 15 characters long")
 	private String heroName;
+
+	@NotBlank(message = "Class cannot be blank")
+	@NotNull(message = "Can't have a blank class")
 	private String heroClass;
 	private int level;
 	private int experience;
@@ -12,8 +21,6 @@ public class Hero implements HeroStats {
 	private int defense;
 	private int hp;
 
-
-	//@Size(min = 1, max = 15, message = "Name has to be between 1 and 15 characters long")
 	public void setName(String heroName) {
 		this.heroName = heroName;
 	}
@@ -21,7 +28,7 @@ public class Hero implements HeroStats {
 	public String getHeroName() {
 		return heroName;
 	}
-	
+
 	public void setClass(String heroClass) {
 		this.heroClass = heroClass;
 	}
@@ -29,6 +36,7 @@ public class Hero implements HeroStats {
 	public String getHeroClass() {
 		return heroClass;
 	}
+
 
 	public void setLevel(int level) {
 		this.level = level;
@@ -83,5 +91,16 @@ public class Hero implements HeroStats {
 		}
 		return this.getHitPoints() > 0;
 	}
+
+	/*public Hero(String heroName, String heroClass, int heroLevel, int heroExp, int heroHP, int heroAtk, int heroDef){
+		this.heroName = heroName;
+		this.heroClass = heroClass;
+		level = heroLevel;
+		experience = heroExp;
+		hp = heroHP;
+		attack = heroAtk;
+		defense = heroDef;
+	}*/
+
 
 }

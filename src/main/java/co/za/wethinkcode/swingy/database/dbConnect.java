@@ -8,14 +8,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class dbConnect {
+class dbConnect {
 
-	public Connection connect() {
+	Connection connect() {
 		return getConnect();
 	}
 
 	@Nullable
-	public Connection getConnect() {
+	private Connection getConnect() {
 		Connection conn = null;
 		try {
 			String url = "jdbc:sqlite:Swingy.db";

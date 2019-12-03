@@ -1,10 +1,19 @@
 package co.za.wethinkcode.swingy.database;
 
 import java.sql.*;
+import co.za.wethinkcode.swingy.model.characters.Hero;
+import co.za.wethinkcode.swingy.model.characters.HeroBuild;
+import co.za.wethinkcode.swingy.model.characters.HeroCreator;
+import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
+import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
+import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class dbMethods {
 
-	private void createDb(){
+	protected void createDb(){
 
 		dbConnect dbCon = new dbConnect();
 		try{
@@ -20,7 +29,7 @@ public class dbMethods {
 		}
 	}
 
-	private void createTable(){
+	protected void createTable(){
 
 		dbConnect dbCon = new dbConnect();
 
@@ -46,7 +55,7 @@ public class dbMethods {
 		}
 	}
 
-	private void addHero(String heroName, String heroClass, int heroLevel, int heroExp, int heroAtk, int heroDef, int heroHP) {
+	public void addHero(String heroName, String heroClass, int heroLevel, int heroExp, int heroAtk, int heroDef, int heroHP) {
 
 		dbConnect dbCon = new dbConnect();
 		String sql = "INSERT INTO heroes (heroName, heroClass, heroLevel, heroExp, heroHP, heroAtk, heroDef) VALUES (?,?,?,?,?,?,?)";
@@ -60,14 +69,14 @@ public class dbMethods {
 				pstmt.setInt(6,heroAtk);
 				pstmt.setInt(7,heroDef);
 				pstmt.execute();
-				System.out.println("\nNew hero added to database\n");
+				System.out.println("\nNew hero added to database");
 		}catch (SQLException ex){
 			System.out.println("\nError: Hero name '" + heroName + "' already in use");
 		//	System.exit(0);
 		}
 	}
 
-	private void selectAll(){
+	public void selectAll(){
 
 		dbConnect dbCon = new dbConnect();
 		String sql = "SELECT * FROM heroes";
@@ -90,7 +99,7 @@ public class dbMethods {
 		}
 	}
 
-	private void selectHero(String heroName){
+	public void selectHero(String heroName){
 
 		dbConnect dbCon = new dbConnect();
 		String sql = "SELECT * FROM heroes WHERE heroName = '" + heroName + "'";
@@ -113,15 +122,108 @@ public class dbMethods {
 		}
 	}
 
+	public ArrayList<Hero> getHeroes(){
 
+		int heroLvl, heroExp, heroHP, heroAtk, heroDef;
+		String heroName, heroClass;
+		HeroCreator heroCreator;
 
-	public static void main(String[] args){
+		dbConnect dbcon = new dbConnect();
+		String sql = "SELECT * FROM heroes";
+		
+		try(Connection conn = dbcon.connect();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);){
+			ArrayList<Hero> heroList = new ArrayList<>();
+			while(rs.next()){
+				heroName = rs.getString("heroName");
+				heroClass = rs.getString("heroClass");
+				heroLvl = rs.getInt("heroLevel");
+				heroExp = rs.getInt("heroExp");
+				heroHP = rs.getInt("heroHP");
+				heroAtk = rs.getInt("heroAtk");
+				heroDef = rs.getInt("heroDef");
+
+				switch(heroClass){
+					case "witcher":
+						HeroBuild witcher = new Witcher(heroName);
+						heroCreator = new HeroCreator(witcher);
+						break;
+					case "mage":
+						HeroBuild mage = new Mage(heroName);
+						heroCreator = new HeroCreator(mage);
+						break;
+					case "fighter":
+						HeroBuild fighter = new Fighter(heroName);
+						heroCreator = new HeroCreator(fighter);
+						break;
+					default:
+						throw new IllegalStateException("Unexpected value: " + heroClass);
+				}
+				heroCreator.createHero();
+				Hero hero = heroCreator.getHero();
+				hero.setLevel(heroLvl);
+				hero.setExperience(heroExp);
+				hero.setHitPoints(heroHP);
+				hero.setAttack(heroAtk);
+				hero.setDefense(heroDef);
+				heroList.add(hero);
+			}
+			return heroList;
+		}catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+		return null;
+	}
+	
+
+	public void updateHero(String heroName, int heroLvl, int heroExp, int heroHP, int heroAtk, int heroDef){
+		dbConnect dbCon = new dbConnect();
+		String sql = "UPDATE heroes SET heroLevel = ?," +
+				"heroExp = ?," +
+				"heroHP = ?," +
+				"HeroAtk = ?," +
+				"heroDef = ?" +
+				"WHERE heroName = ?";
+		try(Connection conn = dbCon.connect();
+			PreparedStatement pstmt = conn.prepareStatement(sql);){
+			//set Parameters
+			pstmt.setInt(1, heroLvl);
+			pstmt.setInt(2,heroExp);
+			pstmt.setInt(3, heroHP);
+			pstmt.setInt(4, heroAtk);
+			pstmt.setInt(5, heroDef);
+			pstmt.setString(6,heroName);
+			//update Hero stats
+			pstmt.executeUpdate();
+		}catch (SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+}
+
+	public void deleteHero(String heroName){
+		dbConnect dbCon = new dbConnect();
+		String sql = "DELETE FROM heroes WHERE heroName = ?";
+		try(Connection conn = dbCon.connect();
+			PreparedStatement pstmt = conn.prepareStatement(sql);){
+			pstmt.setString(1,heroName);
+			pstmt.executeUpdate();
+		}catch (SQLException ex){
+			System.out.println("Error: cannot delete hero");
+		}
+}
+
+	/*public static void main(String[] args){
 		dbMethods db = new dbMethods();
 //		db.createDb();
 //		db.createTable();
-		db.addHero("Geralt","Witcher",2,1500,120,0,200);
-		db.selectHero("Princess");
-		db.selectAll();
-	}
+//		db.addHero("Geralt","Witcher",2,1500,120,0,200);
+//		db.selectHero("KB");
+//		db.selectAll();
+//		db.updateHero("Geralt",2,2000,300,180,60);
+//		db.selectHero("Geralt");
+//		db.deleteHero("KB");
+//		db.selectAll();
+	}*/
 
 }
