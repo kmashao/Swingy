@@ -1,30 +1,43 @@
 package co.za.wethinkcode.swingy.view.console;
 
 import co.za.wethinkcode.swingy.Main;
+import co.za.wethinkcode.swingy.database.dbMethods;
+import co.za.wethinkcode.swingy.map.CreateMap;
 import co.za.wethinkcode.swingy.model.characters.Hero;
 import co.za.wethinkcode.swingy.model.characters.HeroBuild;
-
 import co.za.wethinkcode.swingy.model.characters.HeroCreator;
 import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
 import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
 import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
-import co.za.wethinkcode.swingy.map.CreateMap;
 import co.za.wethinkcode.swingy.view.Display;
-
 
 import java.util.Scanner;
 
 public class ConsoleInterface implements Display {
 	
 	private Hero hero = null;
-	
-	
+
+
 	public void DisplayStart() {
 
-		System.out.println("/*******************************************\n" +
-				"*            WELCOME TO THE GAME         *" +
-				"*******************************************/");
+		System.out.println(
+						"\n/****************************************\n" +
+						"*										*\n" +
+						"*            WELCOME TO THE GAME		*\n" +
+						"*										*\n" +
+						"*****************************************/\n");
 
+	}
+
+	public void DisplayLoad(){
+		System.out.println(
+				"\n/********************************************\n" +
+						"*											*\n" +
+						"*            Choose an option	            *\n" +
+						"*											*\n" +
+						"*			1. Load saved hero				*\n" +
+						"*			2. Create new hero				*\n" +
+						"********************************************/\n");
 	}
 
 	public void DisplayHeroSelect() {
@@ -32,6 +45,9 @@ public class ConsoleInterface implements Display {
 		int heroClass = 0;
 		String name_ = null;
 		HeroCreator heroCreator = null;
+		dbMethods dbData = new dbMethods();
+	//	Validators validate = new Validators();
+	//	Validator validator = validate.validator();
 		
 		Scanner scan = null;
 		try {
@@ -69,11 +85,31 @@ public class ConsoleInterface implements Display {
 			assert heroCreator != null;
 			heroCreator.createHero();
 			hero = heroCreator.getHero();
+//			Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
+//			for (ConstraintViolation<Hero> violation : violations) {
+//				System.out.println(violation.getMessage());
+//			}
+			dbData.addHero(hero.getHeroName(), hero.getHeroClass(), hero.getHeroLevel(), hero.getExperience(),
+					hero.getHitPoints(), hero.getAttack(), hero.getDefense());
 
 			System.out.println("Hero Created");
 
-			System.out.println(" ");
+		}
+	}
+		
+		public void run(){
 
+		this.DisplayHeroSelect();
+		CreateMap map = new CreateMap(this.hero);
+		map.setMap();
+		String nav = null;
+		}
+		
+		public void DisplayHeroName() {
+		
+		}
+		
+		public void DisplayStats () {
 			System.out.println("Hero stats are:");
 
 			System.out.println("Name: " + hero.getHeroName());
@@ -90,26 +126,41 @@ public class ConsoleInterface implements Display {
 
 			System.out.println("HP: " + hero.getHitPoints());
 		}
+
+	@Override
+	public void DisplaySave() {
+
+		int load, heroChoice;
+		dbMethods dbData = new dbMethods();
+		Scanner scan = null;
+		DisplayLoad();
+		try{
+
+			scan = Main.getScanner();
+			load = scan.nextInt();
+			scan.nextLine();
+			switch(load){
+				case 1:
+					System.out.println("choose a hero by typing their id");
+					dbData.selectAll();
+					if (!scan.hasNextInt())
+						throw new Exception();
+					heroChoice = scan.nextInt();
+					scan.nextLine();
+					hero = dbData.getHerodb(heroChoice);
+					break;
+				case 2:
+					DisplayHeroSelect();
+					break;
+		}
+			System.out.println("this is your Hero");
+			dbData.selectHero(hero.getHeroName());
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
-		
-		public void run(){
-		
-		this.DisplayHeroSelect();
-		CreateMap map = new CreateMap(this.hero);
-		map.setMap();
-		String nav = null;
-		
-		}
-		
-		public void DisplayHeroName() {
-		
-		}
-		
-		public void DisplayStats () {
-		
-		}
-		
-		public void DisplayIntro () {
+
+	public void DisplayIntro () {
 		
 		}
 	}

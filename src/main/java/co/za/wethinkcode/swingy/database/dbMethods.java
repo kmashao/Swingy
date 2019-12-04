@@ -1,6 +1,5 @@
 package co.za.wethinkcode.swingy.database;
 
-import java.sql.*;
 import co.za.wethinkcode.swingy.model.characters.Hero;
 import co.za.wethinkcode.swingy.model.characters.HeroBuild;
 import co.za.wethinkcode.swingy.model.characters.HeroCreator;
@@ -8,8 +7,7 @@ import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
 import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
 import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
 public class dbMethods {
 
@@ -83,8 +81,10 @@ public class dbMethods {
 		try(Connection conn = dbCon.connect();
 		    Statement stmt = conn.createStatement();
 		    ResultSet rs = stmt.executeQuery(sql)){
+
+			System.out.println("These are all saved heroes");
 			while(rs.next()){
-				System.out.println( "\nid: " + rs.getInt("heroID" ) +
+				System.out.println( "\nID: " + rs.getInt("heroID" ) +
 									"\nName: " + rs.getString("heroName") +
 									"\nClass: " + rs.getString("heroClass") +
 									"\nLevel: " + rs.getInt("heroLevel") +
@@ -122,19 +122,20 @@ public class dbMethods {
 		}
 	}
 
-	public ArrayList<Hero> getHeroes(){
+	public Hero getHerodb(int id){
 
 		int heroLvl, heroExp, heroHP, heroAtk, heroDef;
 		String heroName, heroClass;
 		HeroCreator heroCreator;
+		Hero hero= null;
 
 		dbConnect dbcon = new dbConnect();
-		String sql = "SELECT * FROM heroes";
+		String sql = "SELECT * FROM heroes WHERE heroID = '" + id + "'";
 		
 		try(Connection conn = dbcon.connect();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);){
-			ArrayList<Hero> heroList = new ArrayList<>();
+		//	ArrayList<Hero> heroList = new ArrayList<>();
 			while(rs.next()){
 				heroName = rs.getString("heroName");
 				heroClass = rs.getString("heroClass");
@@ -144,7 +145,7 @@ public class dbMethods {
 				heroAtk = rs.getInt("heroAtk");
 				heroDef = rs.getInt("heroDef");
 
-				switch(heroClass){
+				switch(heroClass.toLowerCase()){
 					case "witcher":
 						HeroBuild witcher = new Witcher(heroName);
 						heroCreator = new HeroCreator(witcher);
@@ -161,15 +162,15 @@ public class dbMethods {
 						throw new IllegalStateException("Unexpected value: " + heroClass);
 				}
 				heroCreator.createHero();
-				Hero hero = heroCreator.getHero();
+				hero = heroCreator.getHero();
 				hero.setLevel(heroLvl);
 				hero.setExperience(heroExp);
 				hero.setHitPoints(heroHP);
 				hero.setAttack(heroAtk);
 				hero.setDefense(heroDef);
-				heroList.add(hero);
+			//	heroList.add(hero);
 			}
-			return heroList;
+			return hero;
 		}catch(SQLException ex){
 			System.out.println(ex.getMessage());
 		}

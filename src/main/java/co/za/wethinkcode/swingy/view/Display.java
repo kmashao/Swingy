@@ -5,6 +5,7 @@ public interface Display{
 	public void DisplayHeroSelect();
 	public void DisplayHeroName();
 	public void DisplayStats();
-	public void DisplayIntro();
+	public void DisplaySave();
+	public void DisplayLoad();
 	public void run();
 }
