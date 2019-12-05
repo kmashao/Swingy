@@ -21,23 +21,23 @@ public class ConsoleInterface implements Display {
 	public void DisplayStart() {
 
 		System.out.println(
-						"\n/****************************************\n" +
-						"*										*\n" +
-						"*            WELCOME TO THE GAME		*\n" +
-						"*										*\n" +
-						"*****************************************/\n");
+						"\n/*****************************************\n" +
+						"*											*\n" +
+						"*            WELCOME TO THE GAME	   		*\n" +
+						"*					   						*\n" +
+						"*******************************************/\n");
 
 	}
 
 	public void DisplayLoad(){
 		System.out.println(
-				"\n/********************************************\n" +
-						"*											*\n" +
-						"*            Choose an option	            *\n" +
-						"*											*\n" +
-						"*			1. Load saved hero				*\n" +
-						"*			2. Create new hero				*\n" +
-						"********************************************/\n");
+					      "\n/*******************************************\n" +
+						"*					    						*\n" +
+						"*            Choose an option	            	*\n" +
+						"*					   						 	*\n" +
+						"*			1. Load saved hero		    		*\n" +
+						"*			2. Create new hero					*\n" +
+						"***********************************************/\n");
 	}
 
 	public void DisplayHeroSelect() {
@@ -141,7 +141,7 @@ public class ConsoleInterface implements Display {
 			scan.nextLine();
 			switch(load){
 				case 1:
-					System.out.println("choose a hero by typing their id");
+					System.out.println("choose a hero by typing their ID");
 					dbData.selectAll();
 					if (!scan.hasNextInt())
 						throw new Exception();
