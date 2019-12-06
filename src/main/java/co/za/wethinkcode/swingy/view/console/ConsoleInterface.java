@@ -2,7 +2,7 @@ package co.za.wethinkcode.swingy.view.console;
 
 import co.za.wethinkcode.swingy.Main;
 import co.za.wethinkcode.swingy.database.dbMethods;
-import co.za.wethinkcode.swingy.map.CreateMap;
+import co.za.wethinkcode.swingy.map.Maps;
 import co.za.wethinkcode.swingy.model.characters.Hero;
 import co.za.wethinkcode.swingy.model.characters.HeroBuild;
 import co.za.wethinkcode.swingy.model.characters.HeroCreator;
@@ -33,7 +33,7 @@ public class ConsoleInterface implements Display {
 		System.out.println(
 				"\n/********************************************\n" +
 						"*											*\n" +
-						"*            Choose an option	            *\n" +
+						"*			Choose an option				*\n" +
 						"*											*\n" +
 						"*			1. Load saved hero				*\n" +
 						"*			2. Create new hero				*\n" +
@@ -99,8 +99,7 @@ public class ConsoleInterface implements Display {
 		
 		public void run(){
 
-		this.DisplayHeroSelect();
-		CreateMap map = new CreateMap(this.hero);
+		Maps map = new Maps(this.hero);
 		map.setMap();
 		String nav = null;
 		}
@@ -128,17 +127,21 @@ public class ConsoleInterface implements Display {
 		}
 
 	@Override
-	public void DisplaySave() {
+	public Hero DisplaySave() {
 
 		int load, heroChoice;
 		dbMethods dbData = new dbMethods();
-		Scanner scan = null;
+		Scanner scan;
 		DisplayLoad();
 		try{
-
 			scan = Main.getScanner();
 			load = scan.nextInt();
 			scan.nextLine();
+			while (load < 1 || load > 2) {
+				System.out.println("invalid choice choose 1 or 2");
+				load = scan.nextInt();
+				scan.nextLine();
+			}
 			switch(load){
 				case 1:
 					System.out.println("choose a hero by typing their id");
@@ -155,9 +158,11 @@ public class ConsoleInterface implements Display {
 		}
 			System.out.println("this is your Hero");
 			dbData.selectHero(hero.getHeroName());
+			return hero;
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 
 	public void DisplayIntro () {

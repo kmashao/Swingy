@@ -1,16 +1,18 @@
 package co.za.wethinkcode.swingy.map;
 
-import co.za.wethinkcode.swingy.model.characters.*;
+import co.za.wethinkcode.swingy.model.characters.Hero;
 import org.jetbrains.annotations.NotNull;
 
-public class CreateMap {
+import java.util.Random;
+
+public class Maps {
 
 	private int mapSize;
-	private char[][] map;
+	private static char[][] map;
 	private static int xHero;
 	private static int yHero;
 
-	public CreateMap(Hero hero){
+	public Maps(Hero hero){
 
 		int heroLvl;
 
@@ -33,8 +35,8 @@ public class CreateMap {
 		for(int i = 0; i < mapSize; i++){
 
 			for(int k = 0; k < mapSize; k++) {
-
 				map[i][k] = '*';
+				villainCoord(map,mapSize - 2);
 			}
 		}
 
@@ -85,10 +87,20 @@ public class CreateMap {
 				yHero += 1;
 				oc = printMap();
 				break;
+			case "q":
+					return 2;
 			default:
 				return oc;
 		}
 		return oc;
+	}
+
+	public void villainCoord(char[][] map, int mapEdge){
+		Random random = new Random();
+		int x,y;
+		x = random.nextInt(mapEdge);
+		y = random.nextInt(mapEdge);
+		map[x][y] = 'V';
 	}
 
 

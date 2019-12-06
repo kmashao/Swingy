@@ -92,14 +92,7 @@ public class Hero implements HeroStats {
 		return this.getHitPoints() > 0;
 	}
 
-	/*public Hero(String heroName, String heroClass, int heroLevel, int heroExp, int heroHP, int heroAtk, int heroDef){
-		this.heroName = heroName;
-		this.heroClass = heroClass;
-		level = heroLevel;
-		experience = heroExp;
-		hp = heroHP;
-		attack = heroAtk;
-		defense = heroDef;
+	/*
 	}*/
 
 
