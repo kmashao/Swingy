@@ -1,6 +1,5 @@
 package co.za.wethinkcode.swingy;
 
-import co.za.wethinkcode.swingy.map.Maps;
 import co.za.wethinkcode.swingy.model.characters.Hero;
 import co.za.wethinkcode.swingy.view.console.ConsoleInterface;
 
@@ -26,24 +25,20 @@ public	class Main {
 
 	//	System.out.println("-------------Map-------------");
 
-		Maps map = new Maps(hero);
-		map.clearScreen();
-		map.setMap();
-		for(int i = 1; i != 2;) {
-
-
-			System.out.println("navigate");
-			try {
-				nav = scanner.next();
-				i = map.navigate(nav);
-			}catch (IllegalStateException ise){
-				String message = ise.getMessage();
-				System.out.println("Unexpected value " + message );
-			}
-
-		//
-
-		}
+//		Maps map = new Maps();
+//		map.clearScreen();
+//		map.setMap(hero);
+//		for(int i = 1; i != 2;) {
+//
+//			System.out.println("navigate");
+//			try {
+//				nav = scanner.next();
+//				i = map.navigate(nav);
+//			}catch (IllegalStateException ise) {
+//				String message = ise.getMessage();
+//				System.out.println("Unexpected value " + message);
+//			}
+//		}
 	//	System.out.println("------------------------------");
 	}
 

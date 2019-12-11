@@ -1,25 +1,31 @@
 package co.za.wethinkcode.swingy.model.characters;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Hero implements HeroStats {
 
 	@NotBlank(message = "hero name cannot be blank")
 	@NotNull(message = "Hero name cannot be null")
-	@Size(min = 3, max = 15, message = "hero name has to be between 3 and 15 characters long")
+	@Length(min = 3, max = 15, message = "hero name has to be between 3 and 15 characters long")
 	private String heroName;
 
 	@NotBlank(message = "Class cannot be blank")
 	@NotNull(message = "Can't have a blank class")
 	private String heroClass;
+	@Size(min = 1, max = 7, message =  "hero cap is level 7")
 	private int level;
+	@Size(min = 1000, max = 200000, message = "Xp cap")
 	private int experience;
 	private int attack;
 	private int defense;
+	private int x;
+	private int y;
 	private int hp;
+	private char symbol;
 
 	public void setName(String heroName) {
 		this.heroName = heroName;
@@ -75,22 +81,21 @@ public class Hero implements HeroStats {
 	public int getHitPoints() {
 		return hp;
 	}
-	
-	private void attack(Hero enemy) {
-		if (this.attack > enemy.defense) {
-			enemy.setHitPoints(enemy.getHitPoints() - (this.attack - enemy.defense));
-		} else if (ThreadLocalRandom.current().nextInt(0, 10) <= 2) {
-			enemy.setHitPoints(enemy.getHitPoints() - this.attack);
-		}
+
+	public void setSymbol(char symbol){ this.symbol = symbol; }
+
+	public char getSymbol(){return this.symbol;}
+
+	public void setPosition(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+
+	public int[] getPosition(){
+		return new int[]{x,y};
 	}
 	
-	public boolean fightOrFlight(Hero enemy){
-		while (enemy.getHitPoints() > 0 && this.getHitPoints() > 0) {
-			this.attack(enemy);
-			enemy.attack(this);
-		}
-		return this.getHitPoints() > 0;
-	}
+
 
 	/*
 	}*/

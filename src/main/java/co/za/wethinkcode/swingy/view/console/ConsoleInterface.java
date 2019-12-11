@@ -9,9 +9,11 @@ import co.za.wethinkcode.swingy.model.characters.HeroCreator;
 import co.za.wethinkcode.swingy.model.characters.heroes.Fighter;
 import co.za.wethinkcode.swingy.model.characters.heroes.Mage;
 import co.za.wethinkcode.swingy.model.characters.heroes.Witcher;
+import co.za.wethinkcode.swingy.model.characters.villains.Serpent;
 import co.za.wethinkcode.swingy.view.Display;
 
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ConsoleInterface implements Display {
 	
@@ -22,22 +24,22 @@ public class ConsoleInterface implements Display {
 
 		System.out.println(
 						"\n/****************************************\n" +
-						"*										*\n" +
-						"*            WELCOME TO THE GAME		*\n" +
-						"*										*\n" +
-						"*****************************************/\n");
+						"*                                         *\n" +
+						"*            WELCOME TO THE GAME          *\n" +
+						"*                                         *\n" +
+						"******************************************/\n");
 
 	}
 
 	public void DisplayLoad(){
 		System.out.println(
-				"\n/********************************************\n" +
-						"*											*\n" +
-						"*			Choose an option				*\n" +
-						"*											*\n" +
-						"*			1. Load saved hero				*\n" +
-						"*			2. Create new hero				*\n" +
-						"********************************************/\n");
+				      "\n/***************************************\n" +
+						"*                                      *\n" +
+						"*          Choose an option            *\n" +
+						"*                                      *\n" +
+						"*          1. Load saved hero          *\n" +
+						"*          2. Create new hero          *\n" +
+						"***************************************/\n");
 	}
 
 	public void DisplayHeroSelect() {
@@ -85,10 +87,10 @@ public class ConsoleInterface implements Display {
 			assert heroCreator != null;
 			heroCreator.createHero();
 			hero = heroCreator.getHero();
-//			Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
-//			for (ConstraintViolation<Hero> violation : violations) {
-//				System.out.println(violation.getMessage());
-//			}
+	//		Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
+	//		for (ConstraintViolation<Hero> violation : violations) {
+	//			System.out.println(violation.getMessage());
+	//		}
 			dbData.addHero(hero.getHeroName(), hero.getHeroClass(), hero.getHeroLevel(), hero.getExperience(),
 					hero.getHitPoints(), hero.getAttack(), hero.getDefense());
 
@@ -99,17 +101,18 @@ public class ConsoleInterface implements Display {
 		
 		public void run(){
 
-		Maps map = new Maps(this.hero);
-		map.setMap();
+		Maps map = new Maps();
+		map.setMap(this.hero);
 		String nav = null;
 		}
 		
 		public void DisplayHeroName() {
 		
 		}
-		
-		public void DisplayStats () {
-			System.out.println("Hero stats are:");
+
+		@Override
+		public void DisplayStats (Hero hero) {
+			System.out.println("Stats are:");
 
 			System.out.println("Name: " + hero.getHeroName());
 
@@ -158,11 +161,58 @@ public class ConsoleInterface implements Display {
 		}
 			System.out.println("this is your Hero");
 			dbData.selectHero(hero.getHeroName());
+
+			System.out.println("le fight test");
+			hehe();
 			return hero;
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
 		return null;
+	}
+
+	public Hero createVill(){
+
+		Hero villain;
+		HeroBuild serpent = new Serpent();
+		HeroCreator heroCreator = new HeroCreator(serpent);
+		heroCreator.createHero();
+		villain = heroCreator.getHero();
+
+		DisplayStats(villain);
+		return villain;
+	}
+
+	public void hehe(){
+		Hero villain;
+		villain = createVill();
+		attacks(villain);
+//		boolean Fight = fightOrflight(villain);
+//		if (Fight)
+//			attacks(villain);
+	}
+
+	public void attacks(Hero enemy) {
+		System.out.println("hero hp: " + this.hero.getHitPoints() + " hero Atk: " + this.hero.getAttack() +"\n");
+		System.out.println("enemy hp: " + enemy.getHitPoints() + " enemy atk " + enemy.getAttack() + "\n");
+		if (this.hero.getAttack() > enemy.getDefense()) {
+			enemy.setHitPoints(enemy.getHitPoints() - (this.hero.getAttack() - enemy.getDefense()));
+		} else if (ThreadLocalRandom.current().nextInt(0, 10) <= 2) {
+			enemy.setHitPoints(enemy.getHitPoints() - this.hero.getAttack());
+		}
+		System.out.println("hero hp: " + this.hero.getHitPoints() + "\n");
+		System.out.println("enemy hp: " + enemy.getHitPoints() + "\n");
+	}
+
+	public boolean fightOrflight(Hero enemy){
+		while (enemy.getHitPoints() > 0 && this.hero.getHitPoints() > 0) {
+			attacks(enemy);
+			System.out.println("enemy attacked\n");
+			attacks(this.hero);
+			System.out.println("hero attacked\n");
+
+		}
+		return this.hero.getHitPoints() > 0;
 	}
 
 	public void DisplayIntro () {

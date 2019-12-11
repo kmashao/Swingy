@@ -1,33 +1,47 @@
 package co.za.wethinkcode.swingy.model.characters.villains;
 
-import co.za.wethinkcode.swingy.model.characters.HeroStats;
+import co.za.wethinkcode.swingy.model.characters.Hero;
+import co.za.wethinkcode.swingy.model.characters.HeroBuild;
 
-public class Serpent implements HeroStats {
-	public void setName(String name_) {
-	
+public class Serpent implements HeroBuild {
+	private Hero serpent;
+	public Serpent(){
+		this.serpent = new Hero();
+		serpent.setSymbol('S');
 	}
-	
-	public void setClass(String class_) {
-	
+	@Override
+	public void heroClass() {
+	serpent.setClass("Serpent");
 	}
-	
-	public void setLevel(int level) {
-	
+
+	@Override
+	public void heroLevel() {
+	serpent.setLevel(1);
 	}
-	
-	public void setExperience(int experience) {
-	
+
+	@Override
+	public void heroExperience() {
+	serpent.setExperience(900);
 	}
-	
-	public void setAttack(int attack) {
-	
+
+	@Override
+	public void heroAttack() {
+	serpent.setAttack(85);
 	}
-	
-	public void setDefense(int defense) {
-	
+
+	@Override
+	public void heroDefense() {
+	serpent.setDefense(70);
 	}
-	
-	public void setHitPoints(int hp) {
-	
+
+	@Override
+	public void heroHitPoints() {
+	serpent.setHitPoints(130);
+	}
+
+
+	@Override
+	public Hero getHero() {
+		return serpent;
 	}
 }

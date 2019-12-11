@@ -1,33 +1,42 @@
 package co.za.wethinkcode.swingy.model.characters.villains;
 
-import co.za.wethinkcode.swingy.model.characters.HeroStats;
+import co.za.wethinkcode.swingy.model.characters.Hero;
+import co.za.wethinkcode.swingy.model.characters.HeroBuild;
 
-public class Goblin implements HeroStats {
-	public void setName(String name_) {
-	
+public class Goblin implements HeroBuild {
+
+	private Hero goblin;
+
+	public Goblin(){
+		this.goblin = new Hero();
+		goblin.setSymbol('G');
 	}
-	
-	public void setClass(String class_) {
-	
+
+	public void heroClass() {
+	goblin.setClass("Goblin");
 	}
-	
-	public void setLevel(int level) {
-	
+
+	public void heroLevel() {
+	goblin.setLevel(1);
 	}
-	
-	public void setExperience(int experience) {
-	
+
+	public void heroExperience() {
+	goblin.setExperience(650);
 	}
-	
-	public void setAttack(int attack) {
-	
+
+	public void heroAttack() {
+	goblin.setAttack(80);
 	}
-	
-	public void setDefense(int defense) {
-	
+
+	public void heroDefense() {
+	goblin.setDefense(40);
 	}
-	
-	public void setHitPoints(int hp) {
-	
+
+	public void heroHitPoints() {
+	goblin.setHitPoints(95);
+	}
+
+	public Hero getHero() {
+		return goblin;
 	}
 }

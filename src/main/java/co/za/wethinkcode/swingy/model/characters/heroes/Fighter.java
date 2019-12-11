@@ -10,6 +10,7 @@ public class Fighter implements HeroBuild {
 	public Fighter(String name){
 		this.hero = new Hero();
 		hero.setName(name);
+		hero.setSymbol('H');
 	}
 
 	public void heroClass() {
@@ -35,6 +36,7 @@ public class Fighter implements HeroBuild {
 	public void heroHitPoints() {
 		hero.setHitPoints(200);
 	}
+
 
 	public Hero getHero() {
 		return hero;

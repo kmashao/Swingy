@@ -7,17 +7,16 @@ import java.util.Random;
 
 public class Maps {
 
-	private int mapSize;
-	private static char[][] map;
-	private static int xHero;
-	private static int yHero;
+	private int mapSize, level, noc;
+	private char[][] map;
+	private int xHero, xVill;
+	private int yHero, yVill;
 
-	public Maps(Hero hero){
+	public Maps(){
 
-		int heroLvl;
+	}
 
-		heroLvl = hero.getHeroLevel();
-		mapSize = ((heroLvl - 1) * 5 + 10 - (heroLvl % 2));
+	public void addVills(){
 
 	}
 
@@ -25,7 +24,10 @@ public class Maps {
 
     }*/
 
-	public void setMap(){
+	public void setMap(Hero hero){
+
+		level = hero.getHeroLevel();
+		mapSize = ((level - 1) * 5 + 10 - (level % 2));
 
 		xHero = mapSize/2;
 		yHero = mapSize/2;
@@ -36,7 +38,6 @@ public class Maps {
 
 			for(int k = 0; k < mapSize; k++) {
 				map[i][k] = '*';
-				villainCoord(map,mapSize - 2);
 			}
 		}
 
@@ -51,11 +52,17 @@ public class Maps {
 	}
 
 	private int printMap(){
+		Random rand = new Random();
+		xVill = rand.nextInt(mapSize - 2);
+		yVill = rand.nextInt(mapSize - 2);
 		for (int i = 0; i < mapSize; i++){
+			//villainCoord(mapSize - 2);
 			for (int k = 0; k < mapSize; k++) {
 				map[i][k] = '*';
 				if (i == xHero && k == yHero)
 					map[i][k] = 'H';
+				if (i == xVill && k == yVill)
+						map[i][k] = 'V';
 				System.out.print(" " + map[i][k] + " ");
 				if (xHero == 0 || yHero == 0 || xHero == mapSize - 1 || yHero == mapSize - 1){
 					System.out.println("Reached the edge");
@@ -95,13 +102,16 @@ public class Maps {
 		return oc;
 	}
 
-	public void villainCoord(char[][] map, int mapEdge){
+	public void villainCoord(int mapEdge){
 		Random random = new Random();
-		int x,y;
-		x = random.nextInt(mapEdge);
-		y = random.nextInt(mapEdge);
-		map[x][y] = 'V';
+
+		xVill = random.nextInt(mapEdge);
+		yVill = random.nextInt(mapEdge);
+		if (this.map[xVill][yVill] != 'H' || this.map[xVill][yVill] != 'V')
+			this.map[xVill][yVill] = 'V';
 	}
+
+
 
 
 }

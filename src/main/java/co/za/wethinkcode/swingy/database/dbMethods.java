@@ -204,7 +204,7 @@ public class dbMethods {
 
 	public void deleteHero(String heroName){
 		dbConnect dbCon = new dbConnect();
-		String sql = "DELETE FROM heroes WHERE heroName = ?";
+		String sql = "DELETE * FROM heroes WHERE heroName = ?";
 		try(Connection conn = dbCon.connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql);){
 			pstmt.setString(1,heroName);
@@ -214,8 +214,8 @@ public class dbMethods {
 		}
 }
 
-	/*public static void main(String[] args){
-		dbMethods db = new dbMethods();
+//	public static void main(String[] args){
+//		dbMethods db = new dbMethods();
 //		db.createDb();
 //		db.createTable();
 //		db.addHero("Geralt","Witcher",2,1500,120,0,200);
@@ -223,8 +223,8 @@ public class dbMethods {
 //		db.selectAll();
 //		db.updateHero("Geralt",2,2000,300,180,60);
 //		db.selectHero("Geralt");
-//		db.deleteHero("KB");
+//		db.deleteHero("P");
 //		db.selectAll();
-	}*/
+//	}
 
 }
