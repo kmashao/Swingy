@@ -7,7 +7,6 @@ public class Serpent implements HeroBuild {
 	private Hero serpent;
 	public Serpent(){
 		this.serpent = new Hero();
-		serpent.setSymbol('S');
 	}
 	@Override
 	public void heroClass() {
@@ -38,7 +37,6 @@ public class Serpent implements HeroBuild {
 	public void heroHitPoints() {
 	serpent.setHitPoints(130);
 	}
-
 
 	@Override
 	public Hero getHero() {

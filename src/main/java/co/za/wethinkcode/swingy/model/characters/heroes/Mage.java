@@ -10,7 +10,6 @@ public class Mage implements HeroBuild {
 	public Mage(String name){
 		this.hero = new Hero();
 		hero.setName(name);
-		hero.setSymbol('H');
 	}
 
 	public void heroClass() {
@@ -22,7 +21,6 @@ public class Mage implements HeroBuild {
 	public void heroExperience() {
 		hero.setExperience(1000);
 	}
-
 
 	public void heroAttack() {
 		hero.setAttack(75);

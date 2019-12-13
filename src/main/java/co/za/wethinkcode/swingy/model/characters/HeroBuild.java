@@ -2,8 +2,6 @@ package co.za.wethinkcode.swingy.model.characters;
 
 public interface HeroBuild {
 
-	//public void heroName();
-
 	void heroClass();
 
 	void heroLevel();

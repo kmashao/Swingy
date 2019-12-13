@@ -7,30 +7,24 @@ import java.util.Random;
 
 public class Maps {
 
-	private int mapSize, level, noc;
+	private int mapSize, level;
 	private char[][] map;
 	private int xHero, xVill;
 	private int yHero, yVill;
+	private Hero hero;
 
 	public Maps(Hero hero){
+		this.hero = hero;
 		setMap(hero);
 		placeVill();
 		printMaps();
 	}
 
-    /*public void placeHero(){
-
-    }*/
-
-    public boolean checkEdge(){
-    	boolean reached = false;
-
-
-
-    	return reached;
+    private boolean checkEdge(){
+		return xHero == 0 || yHero == 0 || xHero == mapSize - 1 || yHero == mapSize -1;
 	}
 
-	public void setMap(Hero hero){
+	private void setMap(@NotNull Hero hero){
 
 		level = hero.getHeroLevel();
 		mapSize = ((level - 1) * 5 + 10 - (level % 2));
@@ -48,7 +42,6 @@ public class Maps {
 			System.out.println("");
 		}
 		this.map[xHero][yHero] = 'H';
-	//	System.out.println("\n" + mapSize);
 	}
 
 	public void clearScreen()
@@ -57,68 +50,40 @@ public class Maps {
 		System.out.flush();
 	}
 
-	private int printMap(){
-		Random rand = new Random();
-		xVill = rand.nextInt(mapSize - 2);
-		yVill = rand.nextInt(mapSize - 2);
-		for (int i = 0; i < mapSize; i++){
-			//villainCoord(mapSize - 2);
-			for (int k = 0; k < mapSize; k++) {
-				this.map[i][k] = '*';
-				if (i == xHero && k == yHero)
-					map[i][k] = 'H';
-				if (i == xVill && k == yVill)
-						this.map[i][k] = 'V';
-				System.out.print(" " + map[i][k] + " ");
-				if (xHero == 0 || yHero == 0 || xHero == mapSize - 1 || yHero == mapSize - 1){
-					System.out.println("Reached the edge");
-					return 2;
-				}
-			}
-			System.out.println();
-		}
-		return 1;
-	}
-
-	public void printMaps(){
+	private void printMaps(){
 		for (int i = 0; i < mapSize; i++){
 			for (int k = 0; k < mapSize; k++) {
 				System.out.print(" " + this.map[i][k] + " ");
 				}
 			System.out.println();
 		}
-		}
-
-
-		public int navigate(@NotNull String nav){
-		int oc = 1;
-
-		switch (nav.toLowerCase()) {
-			case "n":
-				xHero -= 1;
-				oc = printMap();
+    }
+    public boolean metVill(@NotNull String nav){
+		boolean metVillain = false;
+		switch (nav.toUpperCase()) {
+			case "N":
+				if (this.map[xHero - 1][yHero] == 'V')
+						metVillain = true;
 				break;
-			case "s":
-				xHero += 1;
-				oc = printMap();
+			case "S":
+				if (this.map[xHero + 1][yHero] == 'V')
+					metVillain = true;
 				break;
-			case "w":
-				yHero -= 1;
-				oc = printMap();
+			case "W":
+				if(this.map[xHero][yHero -= 1] == 'V')
+					metVillain = true;
 				break;
-			case "e":
-				yHero += 1;
-				oc = printMap();
+			case "E":
+				if(this.map[xHero][yHero += 1] == 'V')
+					metVillain = true;
 				break;
-			case "q":
-					return 2;
 			default:
-				return oc;
+				break;
 		}
-		return oc;
+		return metVillain;
 	}
 
-	public void villainCoord(Maps maps){
+	private void villainCoord(@NotNull Maps maps){
 		Random random = new Random();
 		for (int x = 2; x < maps.mapSize - 1; x++) {
 			for (int y = 2; y < maps.mapSize - 1; y++) {
@@ -130,11 +95,87 @@ public class Maps {
 		}
 	}
 
-	public void placeVill(){
+	private void placeVill(){
 		villainCoord(this);
 	}
 
+	private String navigation(@NotNull String direction){
+		String status = null;
+		while (true){
+			if (checkEdge()){
+				status = "END";
+				return status;
+			}
+			else{
+			switch (direction.toUpperCase()){
+				case "N":
+					if (checkEdge()){
+						status = "END";
+						return status;
 
+					}
+					this.map[--xHero][yHero] = 'H';
+					this.map[xHero + 1][yHero] = '*';
+					printMaps();
+					status = "CONTINUE";
+					return status;
+				case "S":
+					if (checkEdge()){
+						status = "END";
+						return status;
+					}
+					this.map[++xHero][yHero] = 'H';
+					this.map[xHero - 1][yHero] = '*';
+					printMaps();
+					status = "CONTINUE";
+					return status;
+				case "E":
+					if (checkEdge()){
+						status = "END";
+						return status;
+					}
+					this.map[xHero][++yHero] = 'H';
+					this.map[xHero][yHero - 1] = '*';
+					printMaps();
+					status = "CONTINUE";
+					return status;
+				case "W":
+					if (checkEdge()){
+						status = "END";
+						return status;
+					}
+					this.map[xHero][--yHero] = 'H';
+					this.map[xHero][yHero + 1] = '*';
+					printMaps();
+					status = "CONTINUE";
+					return status;
+				default:
+					System.out.println("Invalid answer ending game");
+					System.exit(1);
+			}}
+			return status;
+		}
+	}
 
+	private void levelUP(){
+		System.out.println("You have leveled up");
+    	this.hero.setLevel(++this.level);
+    	this.setMap(this.hero);
+    	placeVill();
+    	printMaps();this.hero.setLevel(++level);
+	}
+
+	public String move (String direction){
+    	String move = null;
+		move = this.navigation(direction);
+		if(move.equals("END")){
+			if(this.hero.getHeroLevel() < 4) {
+				clearScreen();
+				levelUP();
+				move = "CONTINUE";
+			}
+		}
+    	return move;
+	}
 
 }

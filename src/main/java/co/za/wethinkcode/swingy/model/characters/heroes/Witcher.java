@@ -10,7 +10,6 @@ public class Witcher implements HeroBuild {
 	public Witcher(String name) {
 		this.hero = new Hero();
 		hero.setName(name);
-		hero.setSymbol('H');
 	}
 
 	public void heroClass() {

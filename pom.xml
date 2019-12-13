@@ -127,7 +127,40 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>.</directory>
+                                    <includes>
+                                        <include>*.jar</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>src</exclude>
+                                        <exclude>pom.xml</exclude>
+                                        <exclude>Swingy.db</exclude>
+                                        <exclude>swingy.jar</exclude>
+                                        <exclude>.gitignore</exclude>
+                                        <exclude>Swingy.iml</exclude>
+                                        <exclude>README.md</exclude>
+                                    </excludes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
 
+            </plugin>
         </plugins>
     </build>
 </project>

@@ -1,6 +1,5 @@
 package co.za.wethinkcode.swingy;
 
-import co.za.wethinkcode.swingy.map.Maps;
 import co.za.wethinkcode.swingy.model.characters.Hero;
 import co.za.wethinkcode.swingy.view.console.ConsoleInterface;
 
@@ -16,11 +15,12 @@ public	class Main {
 		scanner = new Scanner(System.in);
 
 		ConsoleInterface console = new ConsoleInterface();
-		hero = console.DisplaySave();
+		console.run();
+	//	hero = console.DisplaySave();
 //		console.DisplayLoad();
 	//	dbMethods dbMeth = new dbMethods();
 	//	dbMeth.selectAll();
-		Maps map = new Maps(hero);
+	//	Maps map = new Maps(hero);
 
 
 //		for(int i = 1; i != 2;) {

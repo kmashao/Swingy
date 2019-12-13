@@ -20,12 +20,13 @@ public class Hero implements HeroStats {
 	private int level;
 	@Size(min = 1000, max = 200000, message = "Xp cap")
 	private int experience;
+	@Size(min = 50, max = 1000, message = "max attack points")
 	private int attack;
+	@Size(min = 25, max = 900, message = "Max defense")
 	private int defense;
-	private int x;
-	private int y;
+	@Size(min = 50, max = 2000, message = "Max HP")
 	private int hp;
-	private char symbol;
+
 
 	public void setName(String heroName) {
 		this.heroName = heroName;
@@ -81,24 +82,5 @@ public class Hero implements HeroStats {
 	public int getHitPoints() {
 		return hp;
 	}
-
-	public void setSymbol(char symbol){ this.symbol = symbol; }
-
-	public char getSymbol(){return this.symbol;}
-
-	public void setPosition(int x, int y){
-		this.x = x;
-		this.y = y;
-	}
-
-	public int[] getPosition(){
-		return new int[]{x,y};
-	}
-	
-
-
-	/*
-	}*/
-
 
 }

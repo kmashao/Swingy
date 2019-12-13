@@ -14,8 +14,6 @@ public class HeroCreator {
 
 	public void createHero() {
 
-		//this.heroBuild.heroName();
-
 		this.heroBuild.heroClass();
 
 		this.heroBuild.heroLevel();

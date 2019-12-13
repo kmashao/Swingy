@@ -135,7 +135,6 @@ public class dbMethods {
 		try(Connection conn = dbcon.connect();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);){
-		//	ArrayList<Hero> heroList = new ArrayList<>();
 			while(rs.next()){
 				heroName = rs.getString("heroName");
 				heroClass = rs.getString("heroClass");
@@ -168,7 +167,6 @@ public class dbMethods {
 				hero.setHitPoints(heroHP);
 				hero.setAttack(heroAtk);
 				hero.setDefense(heroDef);
-			//	heroList.add(hero);
 			}
 			return hero;
 		}catch(SQLException ex){
@@ -213,18 +211,5 @@ public class dbMethods {
 			System.out.println("Error: cannot delete hero");
 		}
 }
-
-//	public static void main(String[] args){
-//		dbMethods db = new dbMethods();
-//		db.createDb();
-//		db.createTable();
-//		db.addHero("Geralt","Witcher",2,1500,120,0,200);
-//		db.selectHero("KB");
-//		db.selectAll();
-//		db.updateHero("Geralt",2,2000,300,180,60);
-//		db.selectHero("Geralt");
-//		db.deleteHero("P");
-//		db.selectAll();
-//	}
 
 }

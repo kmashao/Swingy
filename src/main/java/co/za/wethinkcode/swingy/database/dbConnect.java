@@ -13,7 +13,7 @@ class dbConnect {
 	}
 
 	@Nullable
-	public Connection getConnect() {
+	private Connection getConnect() {
 		Connection conn = null;
 		try {
 			String url = "jdbc:sqlite:Swingy.db";
@@ -21,7 +21,6 @@ class dbConnect {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-
 		return conn;
 	}
 }

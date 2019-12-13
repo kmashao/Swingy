@@ -9,7 +9,6 @@ public class Goblin implements HeroBuild {
 
 	public Goblin(){
 		this.goblin = new Hero();
-		goblin.setSymbol('G');
 	}
 
 	public void heroClass() {
