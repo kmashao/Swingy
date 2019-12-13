@@ -95,13 +95,12 @@ public class ConsoleInterface implements Display {
 					hero.getHitPoints(), hero.getAttack(), hero.getDefense());
 
 			System.out.println("Hero Created");
-
 		}
 	}
 		
 		public void run(){
 
-		Maps map = new Maps();
+		Maps map = new Maps(this.hero);
 		map.setMap(this.hero);
 		String nav = null;
 		}
@@ -162,8 +161,8 @@ public class ConsoleInterface implements Display {
 			System.out.println("this is your Hero");
 			dbData.selectHero(hero.getHeroName());
 
-			System.out.println("le fight test");
-			hehe();
+		//	System.out.println("le fight test");
+		//	hehe();
 			return hero;
 		}catch (Exception e){
 			System.out.println(e.getMessage());
@@ -172,7 +171,7 @@ public class ConsoleInterface implements Display {
 	}
 
 	public Hero createVill(){
-
+		String[] villains = new String[]{"serpent","goblin"};
 		Hero villain;
 		HeroBuild serpent = new Serpent();
 		HeroCreator heroCreator = new HeroCreator(serpent);

@@ -12,17 +12,23 @@ public class Maps {
 	private int xHero, xVill;
 	private int yHero, yVill;
 
-	public Maps(){
-
-	}
-
-	public void addVills(){
-
+	public Maps(Hero hero){
+		setMap(hero);
+		placeVill();
+		printMaps();
 	}
 
     /*public void placeHero(){
 
     }*/
+
+    public boolean checkEdge(){
+    	boolean reached = false;
+
+
+
+    	return reached;
+	}
 
 	public void setMap(Hero hero){
 
@@ -32,16 +38,16 @@ public class Maps {
 		xHero = mapSize/2;
 		yHero = mapSize/2;
 
-		map = new char[mapSize][mapSize];
+		this.map = new char[mapSize][mapSize];
 
-		for(int i = 0; i < mapSize; i++){
+		for(int x = 0; x < mapSize; x++){
 
-			for(int k = 0; k < mapSize; k++) {
-				map[i][k] = '*';
+			for(int y = 0; y < mapSize; y++) {
+				this.map[x][y] = '*';
 			}
+			System.out.println("");
 		}
-
-		printMap();
+		this.map[xHero][yHero] = 'H';
 	//	System.out.println("\n" + mapSize);
 	}
 
@@ -58,11 +64,11 @@ public class Maps {
 		for (int i = 0; i < mapSize; i++){
 			//villainCoord(mapSize - 2);
 			for (int k = 0; k < mapSize; k++) {
-				map[i][k] = '*';
+				this.map[i][k] = '*';
 				if (i == xHero && k == yHero)
 					map[i][k] = 'H';
 				if (i == xVill && k == yVill)
-						map[i][k] = 'V';
+						this.map[i][k] = 'V';
 				System.out.print(" " + map[i][k] + " ");
 				if (xHero == 0 || yHero == 0 || xHero == mapSize - 1 || yHero == mapSize - 1){
 					System.out.println("Reached the edge");
@@ -74,7 +80,17 @@ public class Maps {
 		return 1;
 	}
 
-	public int navigate(@NotNull String nav){
+	public void printMaps(){
+		for (int i = 0; i < mapSize; i++){
+			for (int k = 0; k < mapSize; k++) {
+				System.out.print(" " + this.map[i][k] + " ");
+				}
+			System.out.println();
+		}
+		}
+
+
+		public int navigate(@NotNull String nav){
 		int oc = 1;
 
 		switch (nav.toLowerCase()) {
@@ -102,13 +118,20 @@ public class Maps {
 		return oc;
 	}
 
-	public void villainCoord(int mapEdge){
+	public void villainCoord(Maps maps){
 		Random random = new Random();
+		for (int x = 2; x < maps.mapSize - 1; x++) {
+			for (int y = 2; y < maps.mapSize - 1; y++) {
+				xVill = random.nextInt(maps.mapSize - 1);
+				yVill = random.nextInt(maps.mapSize - 1);
+				if (maps.map[xVill][yVill] != 'H' && maps.map[xVill][yVill] != 'V' && xVill != 0 && yVill != 0)
+					maps.map[xVill][yVill] = 'V';
+			}
+		}
+	}
 
-		xVill = random.nextInt(mapEdge);
-		yVill = random.nextInt(mapEdge);
-		if (this.map[xVill][yVill] != 'H' || this.map[xVill][yVill] != 'V')
-			this.map[xVill][yVill] = 'V';
+	public void placeVill(){
+		villainCoord(this);
 	}
 
 

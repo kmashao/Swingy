@@ -1,5 +1,6 @@
 package co.za.wethinkcode.swingy;
 
+import co.za.wethinkcode.swingy.map.Maps;
 import co.za.wethinkcode.swingy.model.characters.Hero;
 import co.za.wethinkcode.swingy.view.console.ConsoleInterface;
 
@@ -19,15 +20,9 @@ public	class Main {
 //		console.DisplayLoad();
 	//	dbMethods dbMeth = new dbMethods();
 	//	dbMeth.selectAll();
+		Maps map = new Maps(hero);
 
 
-
-
-	//	System.out.println("-------------Map-------------");
-
-//		Maps map = new Maps();
-//		map.clearScreen();
-//		map.setMap(hero);
 //		for(int i = 1; i != 2;) {
 //
 //			System.out.println("navigate");
