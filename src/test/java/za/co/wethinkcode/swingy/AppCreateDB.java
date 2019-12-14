@@ -1,0 +1,20 @@
+package za.co.wethinkcode.swingy;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Unit test for simple App.
+ */
+public class AppCreateDB
+{
+    /**
+     * Rigorous Test :-)
+     */
+    @Test
+    public void shouldAnswerWithTrue()
+    {
+        assertTrue( true );
+    }
+}

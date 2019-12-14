@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.za.wethinkcode</groupId>
+    <groupId>za.co.wethinkcode</groupId>
     <artifactId>Swingy</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -81,7 +81,7 @@
     </dependencies>
 
     <build>
-        <finalName>swingy</finalName>
+        <finalName>Swingy</finalName>
         <plugins>
 
             <plugin>
@@ -105,7 +105,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>.</outputDirectory>
+                            <outputDirectory>./lib</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                         </configuration>
@@ -118,11 +118,11 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <outputDirectory>.</outputDirectory>
+                    <outputDirectory>./lib</outputDirectory>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>co.za.wethinkcode.swingy.Main</mainClass>
+                            <mainClass>za.co.wethinkcode.swingy.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -145,6 +145,7 @@
                                         <include>*.jar</include>
                                     </includes>
                                     <excludes>
+	                                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
                                         <exclude>src</exclude>
                                         <exclude>pom.xml</exclude>
                                         <exclude>Swingy.db</exclude>
@@ -159,7 +160,6 @@
                         </configuration>
                     </execution>
                 </executions>
-
             </plugin>
         </plugins>
     </build>
