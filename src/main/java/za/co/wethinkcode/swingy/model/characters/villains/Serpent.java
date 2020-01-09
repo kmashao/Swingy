@@ -31,7 +31,7 @@ public class Serpent implements HeroBuild {
 
 	@Override
 	public void heroDefense() {
-	serpent.setDefense(135);
+	serpent.setDefense(100);
 	}
 
 	@Override

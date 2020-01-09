@@ -9,8 +9,7 @@ import za.co.wethinkcode.swingy.model.characters.HeroCreator;
 import za.co.wethinkcode.swingy.model.characters.heroes.Fighter;
 import za.co.wethinkcode.swingy.model.characters.heroes.Mage;
 import za.co.wethinkcode.swingy.model.characters.heroes.Witcher;
-import za.co.wethinkcode.swingy.model.characters.villains.Goblin;
-import za.co.wethinkcode.swingy.model.characters.villains.Serpent;
+import za.co.wethinkcode.swingy.model.characters.villains.*;
 import za.co.wethinkcode.swingy.view.Display;
 
 import java.util.Scanner;
@@ -188,7 +187,7 @@ public class ConsoleInterface implements Display {
 
 		Hero villain;
 		HeroCreator heroCreator = null;
-		String[] villains = new String[]{"Serpent", "Goblin"};
+		String[] villains = new String[]{"Serpent", "Goblin", "Beserker", "Wolf", "Panther"};
 		String type = villains[ThreadLocalRandom.current().nextInt(villains.length)];
 		switch (type){
 			case "Serpent":
@@ -198,6 +197,18 @@ public class ConsoleInterface implements Display {
 			case "Goblin":
 				HeroBuild goblin = new Goblin();
 				heroCreator = new HeroCreator(goblin);
+				break;
+			case  "Beserker":
+				HeroBuild beserker = new Beserker();
+				heroCreator = new HeroCreator(beserker);
+				break;
+			case "Panther":
+				HeroBuild panther = new Panther();
+				heroCreator = new HeroCreator(panther);
+				break;
+			case "Wolf":
+				HeroBuild wolf = new Wolf();
+				heroCreator = new HeroCreator(wolf);
 				break;
 			default:
 				System.out.println("failed to create villain");
