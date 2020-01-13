@@ -8,7 +8,8 @@ public class Validators {
 
 	public Validator validator(){
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		 Validator validator= factory.getValidator();
+		 Validator validator;
+		validator = factory.getValidator();
 		return validator;
 	}
 }

@@ -6,14 +6,20 @@ import za.co.wethinkcode.swingy.database.dbMethods;
 import za.co.wethinkcode.swingy.model.characters.Hero;
 import za.co.wethinkcode.swingy.model.characters.HeroBuild;
 import za.co.wethinkcode.swingy.model.characters.HeroCreator;
+import za.co.wethinkcode.swingy.model.characters.Validators;
 import za.co.wethinkcode.swingy.model.characters.heroes.Fighter;
 import za.co.wethinkcode.swingy.model.characters.heroes.Mage;
 import za.co.wethinkcode.swingy.model.characters.heroes.Witcher;
 import za.co.wethinkcode.swingy.model.characters.villains.*;
 import za.co.wethinkcode.swingy.view.Display;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 
 public class ConsoleInterface implements Display {
 
@@ -49,8 +55,8 @@ public class ConsoleInterface implements Display {
 		String name_ = null;
 		HeroCreator heroCreator = null;
 		dbMethods dbData = new dbMethods();
-		//	Validators validate = new Validators();
-		//	Validator validator = validate.validator();
+			Validators validate = new Validators();
+			Validator validator = validate.validator();
 
 		Scanner scan = null;
 		try {
@@ -88,14 +94,20 @@ public class ConsoleInterface implements Display {
 			assert heroCreator != null;
 			heroCreator.createHero();
 			hero = heroCreator.getHero();
-			//		Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
-			//		for (ConstraintViolation<Hero> violation : violations) {
-			//			System.out.println(violation.getMessage());
-			//		}
-			dbData.addHero(hero.getHeroName(), hero.getHeroClass(), hero.getHeroLevel(), hero.getExperience(),
-					hero.getHitPoints(), hero.getAttack(), hero.getDefense());
-
-			System.out.println("Hero Created");
+					Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
+					if (!isEmpty(violations))
+					{
+						for (ConstraintViolation<Hero> violation : violations)
+						{
+							System.out.println(violation.getMessage());
+						}
+					}
+					else
+					{
+						dbData.addHero(hero.getHeroName(), hero.getHeroClass(), hero.getHeroLevel(), hero.getExperience(),
+								hero.getHitPoints(), hero.getAttack(), hero.getDefense());
+						System.out.println("Hero Created");
+					}
 		}
 	}
 
@@ -120,26 +132,32 @@ public class ConsoleInterface implements Display {
 
 	public void run() {
 
-		String move;
+		String status = null;
+		String direction;
 		Scanner sc;
 		sc = Main.getScanner();
 		this.DisplayStart();
 		this.hero = this.DisplaySave();
 		Maps map = new Maps(this.hero);
-		int res = meetUp();
-		if (res == 1)
-			System.out.println("you won");
-		else
-			System.out.println("you lost");
-		/*while (true) {
+		while (true) {
 			System.out.println("Choose a direction (N - north, S - south, E - east, W - west) : ");
-			move = map.move(sc.nextLine());
-			if (move.equals("END")){
+			direction = sc.nextLine();
+			if (map.metVill(direction)){
+				if (metVillain()) {
+					System.out.println("you lost");
+					break;
+				}
+				else
+					System.out.println("you won");
+			}
+			status = map.move(direction);
+			if (status.equals("END")){
 				System.out.println("You finished the game gg");
 				break;
 			}
-		}*/
+		}
 	}
+
 
 	@Override
 	public Hero DisplaySave() {
@@ -173,9 +191,6 @@ public class ConsoleInterface implements Display {
 			}
 			System.out.println("this is your Hero");
 			dbData.selectHero(hero.getHeroName());
-
-			//	System.out.println("le fight test");
-			//	hehe();
 			return hero;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -223,9 +238,9 @@ public class ConsoleInterface implements Display {
 		return villain;
 	}
 
-	private int meetUp() {
+	private boolean metVillain() {
 
-		int result = 2;
+		boolean result = false;
 		Hero villain;
 		villain = createVillain();
 		attacks(villain);
@@ -235,9 +250,9 @@ public class ConsoleInterface implements Display {
 			Fight = fightOrFlight(villain);
 		}
 		if (this.hero.getHitPoints() <= 0 && (villain.getHitPoints() > 0))
-			result = 0;
+			result = true;
 		else if ((villain.getHitPoints() <= 0 )&& (this.hero.getHitPoints() > 0))
-			result = 1;
+			result = false;
 		return result;
 	}
 

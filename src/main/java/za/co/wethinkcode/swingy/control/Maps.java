@@ -58,24 +58,32 @@ public class Maps {
 			System.out.print("\n");
 		}
     }
+
     public boolean metVill(@NotNull String nav){
 		boolean metVillain = false;
 		switch (nav.toUpperCase()) {
 			case "N":
-				if (this.map[xHero - 1][yHero] == 'V')
-						metVillain = true;
+				if (!checkEdge()){
+					if (this.map[xHero - 1][yHero] == 'V')
+						metVillain = true;}
 				break;
 			case "S":
-				if (this.map[xHero + 1][yHero] == 'V')
-					metVillain = true;
+				if (!checkEdge()) {
+					if (this.map[xHero + 1][yHero] == 'V')
+						metVillain = true;
+				}
 				break;
 			case "W":
-				if(this.map[xHero][yHero -= 1] == 'V')
-					metVillain = true;
+				if (!checkEdge()) {
+					if (this.map[xHero][yHero - 1] == 'V')
+						metVillain = true;
+				}
 				break;
 			case "E":
-				if(this.map[xHero][yHero += 1] == 'V')
-					metVillain = true;
+				if (!checkEdge()) {
+					if (this.map[xHero][yHero + 1] == 'V')
+						metVillain = true;
+				}
 				break;
 			default:
 				break;
@@ -98,6 +106,7 @@ public class Maps {
 	private void placeVill(){
 		villainCoord(this);
 	}
+
 
 	private String navigation(@NotNull String direction){
 		String status = null;
@@ -163,11 +172,11 @@ public class Maps {
     	this.setMap(this.hero);
     	placeVill();
     	printMaps();
-    	this.hero.setLevel(++level);
+    //	this.hero.setLevel(++level);
 	}
 
 	public String move (String direction){
-    	String move = null;
+    	String move;
 		move = this.navigation(direction);
 		if(move.equals("END")){
 			if(this.hero.getHeroLevel() < 4) {

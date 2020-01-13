@@ -10,19 +10,16 @@ public	class Main {
 	public static Hero hero;
     private static Scanner scanner = null;
 	public static void main(String[] args) throws NumberFormatException {
-
-		scanner = new Scanner(System.in);
-
+		//scanner = new Scanner(System.in);
 		ConsoleInterface console = new ConsoleInterface();
 		console.run();
-
 	}
 
-		public static Scanner getScanner() {
-			if(scanner != null)
-				return scanner;
-			scanner = new Scanner(System.in);
+	public static Scanner getScanner() {
+		if(scanner != null)
+			return scanner;
+		scanner = new Scanner(System.in);
 			return scanner;
 		}
 
-	}
+}

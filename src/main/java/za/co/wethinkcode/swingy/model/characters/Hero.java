@@ -1,7 +1,5 @@
 package za.co.wethinkcode.swingy.model.characters;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,21 +8,21 @@ public class Hero implements HeroStats {
 
 	@NotBlank(message = "hero name cannot be blank")
 	@NotNull(message = "Hero name cannot be null")
-	@Length(min = 3, max = 15, message = "hero name has to be between 3 and 15 characters long")
+	@Size(min = 3, max = 15, message = "hero name has to be between 3 and 15 characters long")
 	private String heroName;
 
 	@NotBlank(message = "Class cannot be blank")
 	@NotNull(message = "Can't have a blank class")
 	private String heroClass;
-	@Size(min = 1, max = 7, message =  "hero cap is level 7")
+//	@Size(min = 1, max = 7, message =  "hero cap is level 7")
 	private int level;
-	@Size(min = 1000, max = 200000, message = "Xp cap")
+//	@Size(min = 1000, max = 200000, message = "Xp cap")
 	private int experience;
-	@Size(min = 50, max = 1000, message = "max attack points")
+//	@Size(min = 50, max = 1000, message = "max attack points")
 	private int attack;
-	@Size(min = 25, max = 900, message = "Max defense")
+//	@Size(min = 25, max = 900, message = "Max defense")
 	private int defense;
-	@Size(min = 50, max = 2000, message = "Max HP")
+//	@Size(min = 50, max = 2000, message = "Max HP")
 	private int hp;
 
 
