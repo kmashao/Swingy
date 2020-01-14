@@ -24,6 +24,7 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 public class ConsoleInterface implements Display {
 
 	private Hero hero = null;
+	private int exp;
 
 
 	public void DisplayStart() {
@@ -54,20 +55,20 @@ public class ConsoleInterface implements Display {
 		int heroClass = 0;
 		String name_ = null;
 		HeroCreator heroCreator = null;
-		dbMethods dbData = new dbMethods();
-			Validators validate = new Validators();
-			Validator validator = validate.validator();
+
 
 		Scanner scan = null;
+		boolean invalid = true;
+		while (invalid){
 		try {
 			scan = Main.getScanner();
 			System.out.println("Enter your hero's name");
 			name_ = scan.nextLine();
 			System.out.println("Select a number to choose class\n" +
 					"   Class       Attack      Defense     HP\n" +
-					"1. Witcher     150         120          250\n" +
-					"2. Mage        110         100          250\n" +
-					"3. Fighter     140         100          300\n");
+					"1. Witcher     150         120         250\n" +
+					"2. Mage        110         115         250\n" +
+					"3. Fighter     140         95          300\n");
 			if (!scan.hasNextInt())
 				throw new Exception();
 			heroClass = scan.nextInt();
@@ -94,20 +95,32 @@ public class ConsoleInterface implements Display {
 			assert heroCreator != null;
 			heroCreator.createHero();
 			hero = heroCreator.getHero();
-					Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
-					if (!isEmpty(violations))
-					{
-						for (ConstraintViolation<Hero> violation : violations)
-						{
-							System.out.println(violation.getMessage());
-						}
-					}
-					else
-					{
-						dbData.addHero(hero.getHeroName(), hero.getHeroClass(), hero.getHeroLevel(), hero.getExperience(),
-								hero.getHitPoints(), hero.getAttack(), hero.getDefense());
-						System.out.println("Hero Created");
-					}
+		}
+		invalid = validate(hero);
+		}
+	}
+
+	private boolean validate(Hero hero_){
+
+		dbMethods dbData = new dbMethods();
+		Validators validate = new Validators();
+		Validator validator = validate.validator();
+
+		Set<ConstraintViolation<Hero>> violations = validator.validate(hero);
+		if (!isEmpty(violations))
+		{
+			for (ConstraintViolation<Hero> violation : violations)
+			{
+				System.out.println(violation.getMessage());
+			}
+			return true;
+		}
+		else
+		{
+			dbData.addHero(hero_.getHeroName(), hero_.getHeroClass(), hero_.getHeroLevel(), hero_.getExperience(),
+					hero_.getHitPoints(), hero_.getAttack(), hero_.getDefense());
+			System.out.println("Hero Created");
+			return false;
 		}
 	}
 
@@ -132,26 +145,46 @@ public class ConsoleInterface implements Display {
 
 	public void run() {
 
-		String status = null;
+		dbMethods dbMethods = new dbMethods();
+		String status;
 		String direction;
 		Scanner sc;
+
 		sc = Main.getScanner();
 		this.DisplayStart();
 		this.hero = this.DisplaySave();
 		Maps map = new Maps(this.hero);
+
 		while (true) {
+
 			System.out.println("Choose a direction (N - north, S - south, E - east, W - west) : ");
 			direction = sc.nextLine();
-			if (map.metVill(direction)){
-				if (metVillain()) {
-					System.out.println("you lost");
-					break;
+
+			if (map.metVill(direction))
+			{
+				if (ThreadLocalRandom.current().nextInt(0,10) <= 7)
+				{
+					if (metVillain())
+					{
+						System.out.println("you lost");
+						break;
+					}
+					else
+					{
+						System.out.println("you won");
+						System.out.println("Exp gained: " + exp);
+						dbMethods.updateHero(this.hero.getHeroName(),this.hero.getHeroLevel(),this.hero.getExperience() + exp,this.hero.getHitPoints() + 15,
+								this.hero.getAttack(),this.hero.getDefense());
+					}
 				}
 				else
-					System.out.println("you won");
+					System.out.println("Someone is lucky, you avoided the villain");
 			}
+
 			status = map.move(direction);
-			if (status.equals("END")){
+
+			if (status.equals("END"))
+			{
 				System.out.println("You finished the game gg");
 				break;
 			}
@@ -166,33 +199,43 @@ public class ConsoleInterface implements Display {
 		dbMethods dbData = new dbMethods();
 		Scanner scan;
 		DisplayLoad();
+
 		try {
 			scan = Main.getScanner();
 			load = scan.nextInt();
 			scan.nextLine();
-			while (load < 1 || load > 2) {
+
+			while (load < 1 || load > 2)
+			{
 				System.out.println("invalid choice choose 1 or 2");
 				load = scan.nextInt();
 				scan.nextLine();
 			}
 			switch (load) {
 				case 1:
+
 					System.out.println("choose a hero by typing their id");
 					dbData.selectAll();
+
 					if (!scan.hasNextInt())
 						throw new Exception();
+
 					heroChoice = scan.nextInt();
 					scan.nextLine();
-					hero = dbData.getHerodb(heroChoice);
+					this.hero = dbData.getHerodb(heroChoice);
 					break;
+
 				case 2:
 					DisplayHeroSelect();
 					break;
 			}
 			System.out.println("this is your Hero");
-			dbData.selectHero(hero.getHeroName());
-			return hero;
-		} catch (Exception e) {
+			dbData.selectHero(this.hero.getHeroName());
+
+			return this.hero;
+		}
+		catch (Exception e)
+		{
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -243,6 +286,7 @@ public class ConsoleInterface implements Display {
 		boolean result = false;
 		Hero villain;
 		villain = createVillain();
+		exp = villain.getExperience();
 		attacks(villain);
 		boolean Fight = fightOrFlight(villain);
 		while (Fight) {
@@ -251,8 +295,6 @@ public class ConsoleInterface implements Display {
 		}
 		if (this.hero.getHitPoints() <= 0 && (villain.getHitPoints() > 0))
 			result = true;
-		else if ((villain.getHitPoints() <= 0 )&& (this.hero.getHitPoints() > 0))
-			result = false;
 		return result;
 	}
 
@@ -260,23 +302,30 @@ public class ConsoleInterface implements Display {
 		System.out.println("hero hp: " + this.hero.getHitPoints() + "\n");
 		System.out.println("enemy hp: " + enemy.getHitPoints() + "\n");
 
-		if(ThreadLocalRandom.current().nextInt(0, 10) >= 4){
-			if (this.hero.getAttack() > enemy.getDefense()) {
+		if (ThreadLocalRandom.current().nextInt(0, 10) >= 4){
+			if (this.hero.getAttack() > enemy.getDefense())
+			{
 				enemy.setHitPoints(enemy.getHitPoints() - (this.hero.getAttack() - enemy.getDefense()));
 				System.out.println(this.hero.getAttack());
-				System.out.println("enemy attacked 1\n");
-			} else if (ThreadLocalRandom.current().nextInt(0, 10) <= 3) {
-				enemy.setHitPoints(enemy.getHitPoints() - this.hero.getAttack());
-				System.out.println("enemy attacked 2\n");
+				System.out.println(this.hero.getHeroName() + " hit " + enemy.getHeroName() +" 1\n");
 			}
-		}else {
-			if (enemy.getAttack() > this.hero.getDefense()){
+			else if (ThreadLocalRandom.current().nextInt(0, 10) <= 3)
+			{
+				enemy.setHitPoints(enemy.getHitPoints() - this.hero.getAttack());
+				System.out.println(this.hero.getHeroName() + " hit " + enemy.getHeroName() + " 2\n");
+			}
+		}
+		else {
+			if (enemy.getAttack() > this.hero.getDefense())
+			{
 				this.hero.setHitPoints(this.hero.getHitPoints() - (enemy.getAttack() - this.hero.getDefense()));
 				System.out.println(enemy.getAttack());
-				System.out.println("hero attacked 1\n");
-			} else if (ThreadLocalRandom.current().nextInt(0, 10) <= 2) {
+				System.out.println(enemy.getHeroName() + "hit" + this.hero.getHeroName() + " 1\n");
+			}
+			else if (ThreadLocalRandom.current().nextInt(0, 10) <= 2)
+			{
 				this.hero.setHitPoints(this.hero.getHitPoints() - enemy.getAttack());
-				System.out.println("hero attacked 2\n");
+				System.out.println(enemy.getHeroName() + " hit " + this.hero.getHeroName() + " 2\n");
 			}
 		}
 

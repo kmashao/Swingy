@@ -23,7 +23,7 @@ public class Mage implements HeroBuild {
 	}
 
 	public void heroAttack() {
-		hero.setAttack(110);
+		hero.setAttack(115);
 	}
 
 	public void heroDefense() {
@@ -31,7 +31,7 @@ public class Mage implements HeroBuild {
 	}
 
 	public void heroHitPoints() {
-		hero.setHitPoints(280);
+		hero.setHitPoints(275);
 	}
 
 	public Hero getHero() {

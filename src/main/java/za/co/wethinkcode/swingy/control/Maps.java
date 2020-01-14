@@ -1,12 +1,16 @@
 package za.co.wethinkcode.swingy.control;
 
 import org.jetbrains.annotations.NotNull;
+import za.co.wethinkcode.swingy.database.dbMethods;
 import za.co.wethinkcode.swingy.model.characters.Hero;
+import za.co.wethinkcode.swingy.view.console.ConsoleInterface;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Maps {
 
+	private ConsoleInterface consoleInterface = new ConsoleInterface();
 	private int mapSize, level;
 	private char[][] map;
 	private int xHero, xVill;
@@ -167,25 +171,46 @@ public class Maps {
 	}
 
 	private void levelUP(){
+
+		Hero hero_;
+		dbMethods methods = new dbMethods();
 		System.out.println("You have leveled up");
     	this.hero.setLevel(++this.level);
-    	this.setMap(this.hero);
+
+    	this.hero.setExperience(this.hero.getExperience() +200
+				+ (ThreadLocalRandom.current().nextInt(1, 15) * this.hero.getHeroLevel()));
+
+    	this.hero.setAttack(this.hero.getAttack()+
+				(ThreadLocalRandom.current().nextInt(2, 10) * this.hero.getHeroLevel()));
+
+    	this.hero.setDefense(this.hero.getDefense()+
+				(ThreadLocalRandom.current().nextInt(2, 10) * this.hero.getHeroLevel()));
+
+		this.hero.setHitPoints(this.hero.getHitPoints() +100
+				+ (ThreadLocalRandom.current().nextInt(1, 20) * this.hero.getHeroLevel()));
+
+		hero_  = this.hero;
+
+		methods.updateHero(hero_.getHeroName(),hero_.getHeroLevel(),hero_.getExperience(),
+				hero_.getHitPoints(),hero_.getAttack(),hero_.getDefense());
+
+		this.setMap(this.hero);
     	placeVill();
     	printMaps();
-    //	this.hero.setLevel(++level);
 	}
 
 	public String move (String direction){
     	String move;
+
 		move = this.navigation(direction);
 		if(move.equals("END")){
-			if(this.hero.getHeroLevel() < 4) {
-				clearScreen();
+			if(this.hero.getHeroLevel() < 3) {
+			//	clearScreen();
 				levelUP();
+				consoleInterface.DisplayStats(this.hero);
 				move = "CONTINUE";
 			}
 		}
     	return move;
 	}
-
 }
