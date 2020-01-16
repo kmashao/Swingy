@@ -217,8 +217,10 @@ public class ConsoleInterface implements Display {
 					System.out.println("choose a hero by typing their id");
 					dbData.selectAll();
 
-					if (!scan.hasNextInt())
-						throw new Exception();
+					while (!scan.hasNextInt()){
+						System.out.println("invalid choice pick a hero ID");
+						scan.nextLine();
+						}
 
 					heroChoice = scan.nextInt();
 					scan.nextLine();
